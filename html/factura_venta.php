@@ -247,6 +247,7 @@ $cont1++;
                                                                 <td><label style="width: 100%">P. Venta:</label></td>
                                                                 <!--<td><label>Descuento:</label></td>-->
                                                                 <!--<td><label>Stock:</label></td>-->
+                                                                <td><label>Disponibles:</label></td>
                                                             </tr>
 
                                                             <tr>
@@ -255,9 +256,9 @@ $cont1++;
                                                                 <td><input type="text" name="producto" id="producto" class="campo" style="width: 250px"  placeholder="Buscar..."/></td>
                                                                 <td><input type="text" name="cantidad" id="cantidad" class="campo" style="width: 60px" maxlength="10"/></td>
                                                                 <td><input type="text" name="p_venta" id="p_venta" style="width: 60px" class="campo" maxlength="10"/></td>
-                                                                <td><input type="hidden" name="descuento" id="descuento" class="campo" readonly style="width: 60px" maxlength="10" placeholder="%" min="0" max="0" /></td>
-                                                                <td><input type="hidden" name="disponibles" id="disponibles" class="campo" readonly style="width: 60px" maxlength="10" value=""/></td>
+                                                                <td><input type="text" name="disponibles" id="disponibles" class="campo" readonly style="width: 60px" maxlength="10" value=""/></td>
                                                                 <td><input type="hidden" name="iva_producto" id="iva_producto" class="campo" style="width: 60px" /></td>
+                                                                <td><input type="hidden" name="descuento" id="descuento" class="campo" readonly style="width: 60px" maxlength="10" placeholder="%" min="0" max="0" /></td>
                                                                 <td><input type="hidden" name="carga_series" id="carga_series" class="campo" style="width: 60px" /></td>
                                                                 <td><input type="hidden" name="cod_producto" id="cod_producto" class="campo" style="width: 60px" /></td>
                                                                 <td><input type="hidden" name="des" id="des" class="campo" style="width: 60px"/></td>
@@ -269,7 +270,7 @@ $cont1++;
                                                             <table id="list"></table>
                                                         </div>
 
-                                                        <table border="0" cellspacing="2" style="margin-left: 635px">
+                                                        <table border="0" cellspacing="2" style="margin-left: 705px">
                                                             <tr>
                                                                 <td><label for="total_p" style="width: 100%">Tarifa 0:</label></td>
                                                                 <td><input type="text" style="width:80px" name="total_p" id="total_p" readonly value="0.00" class="campo"/></td>

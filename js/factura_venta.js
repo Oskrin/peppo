@@ -216,6 +216,10 @@ function entrar3() {
                         $("#p_venta").focus();
                         alertify.error("Ingrese un precio");
                     } else {
+                        if (parseInt($("#cantidad").val()) > parseInt($("#disponibles").val())) {
+                            $("#cantidad").focus();
+                            alertify.alert("Error.. La cantidad ingresada es mayor a la disponible");
+                        }else {
                             var filas = jQuery("#list").jqGrid("getRowData");
                             var descuento = 0;
                             var cal = 0;
@@ -401,6 +405,7 @@ function entrar3() {
                             }
                             $("#codigo_barras").focus();
                     }
+                   }
                 }
             }
         }
@@ -1448,6 +1453,7 @@ function limpiar_campo3(){
 
 function limpiar_campo4(){
     if($("#producto").val() === ""){
+        $("#codigo_barras").val("");
         $("#cod_producto").val("");
         $("#codigo").val("");
         $("#codigo_barras").val("");
@@ -1705,9 +1711,8 @@ function inicio() {
     $("#adelanto").on("keypress",punto);
     ////////////////////////////////
       
-    //////////////////buscar productos codigo//////////////// 
-    
-    $("#codigo_barras").keyup(function(e) {
+   ///////////////Buscar codigo barras//////////////////
+   $("#codigo_barras").keyup(function(e) {
         var precio = $("#tipo_precio").val(); 
         var codigo = $("#codigo_barras").val();
         if (precio === "MINORISTA") {
@@ -1772,6 +1777,7 @@ function inicio() {
     });
     ///////////////////////////////////////////////////////
     
+    //////////////////buscar productos codigo barras//////////////// 
         $("#codigo").keypress(function(e) {
         var precio = $("#tipo_precio").val(); 
         if (precio === "MINORISTA") {
@@ -2151,7 +2157,7 @@ function inicio() {
             {name: 'pendiente', index: 'pendiente', editable: false, frozen: true, hidden: true, editrules: {required: true}, align: 'center', width: 90}
         ],
         rowNum: 30,
-        width: 790,
+        width: 860,
         height: 300,
         sortable: true,
         rowList: [10, 20, 30],

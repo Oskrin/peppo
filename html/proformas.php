@@ -199,7 +199,7 @@ $cont1++;
                                                                 <td><input type="text" name="producto" id="producto" class="campo" style="width: 200px"  placeholder="Buscar..."/></td>
                                                                 <td><input type="text" name="cantidad" id="cantidad" class="campo" style="width: 60px" maxlength="10"/></td>
                                                                 <td><input type="text" name="p_venta" id="p_venta" style="width: 60px" class="campo" maxlength="10"/></td>
-                                                                <td><input type="text" name="descuento" id="descuento" class="campo" style="width: 60px" maxlength="10" value="" placeholder="%" readonly/></td>
+                                                                <td><input type="hidden" name="descuento" id="descuento" class="campo" style="width: 60px" maxlength="10" value="" placeholder="%" readonly/></td>
                                                                 <td><input type="hidden" name="cod_producto" id="cod_producto" class="campo" style="width: 100px"/></td>
                                                                 <td><input type="hidden" name="iva_producto" id="iva_producto" class="campo" style="width: 100px" /></td>
                                                             </tr>
