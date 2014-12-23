@@ -266,7 +266,7 @@ include '../menus/menu.php';
                                                     </div>
                                                     
                                                     <div class="control-group">
-                                                        <label class="control-label" for="marca">Unidades de medida: <font color="red">*</font></label>
+                                                        <label class="control-label" for="marca">Unidades de medida: </label>
                                                         <div class="controls">
                                                             <div class="input-append">
                                                                 <select id="medida" name="medida" class="campo" style="width: 165px" >

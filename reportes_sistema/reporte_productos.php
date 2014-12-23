@@ -4,7 +4,7 @@ require('../reportes/dompdf/dompdf_config.inc.php');
 session_start();
 $codigo = '<html> 
     <head> 
-        <link rel="stylesheet" href="../css/estilosAgrupados.css" type="text/css" /> 
+        <link rel="stylesheet" href="../css/estilosAgrupados.css" type="text/css" />
     </head> 
     <body>
         <header>
