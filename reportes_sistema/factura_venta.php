@@ -1,62 +1,64 @@
 <?php
 require('../fdpf/fpdf.php');
 include '../procesos/base.php';
-conectarse();
+
+date_default_timezone_set('UTC');
+$fecha = date("Y-m-d");
 class PDF extends FPDF
 {
-	var $widths;
-	var $aligns;
+    var $widths;
+    var $aligns;
 
-	function SetWidths($w)
-	{
-		//Set the array of column widths
-		$this->widths=$w;
-	}
+    function SetWidths($w)
+    {
+        //Set the array of column widths
+        $this->widths=$w;
+    }
 
-	function SetAligns($a)
-	{
-		//Set the array of column alignments
-		$this->aligns=$a;
-	}
+    function SetAligns($a)
+    {
+        //Set the array of column alignments
+        $this->aligns=$a;
+    }
 
-	function Row($data)
-	{
-		//Calculate the height of the row
-		$nb=0;
-		for($i=0;$i<count($data);$i++)
-			$nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-		$h=5*$nb;
-		//Issue a page break first if needed
-		$this->CheckPageBreak($h);
-		//Draw the cells of the row
-		for($i=0;$i<count($data);$i++)
-		{
-			$w=$this->widths[$i];
-			$a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
-			//Save the current position
-			$x=$this->GetX();
-			$y=$this->GetY();
-			//Draw the border
-			
-			//$this->Rect($x,$y,$w,$h);
+    function Row($data)
+    {
+        //Calculate the height of the row
+        $nb=0;
+        for($i=0;$i<count($data);$i++)
+            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
+        $h=5*$nb;
+        //Issue a page break first if needed
+        $this->CheckPageBreak($h);
+        //Draw the cells of the row
+        for($i=0;$i<count($data);$i++)
+        {
+            $w=$this->widths[$i];
+            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+            //Save the current position
+            $x=$this->GetX();
+            $y=$this->GetY();
+            //Draw the border
+            
+            //$this->Rect($x,$y,$w,$h);
 
-			$this->MultiCell( $w,5,$data[$i],0,$a,false);
-			//Put the position to the right of the cell
-			$this->SetXY($x+$w,$y);
-		}
-		//Go to the next line
-		$this->Ln($h);
-	}
-	
+            $this->MultiCell( $w,5,$data[$i],0,$a,false);
+            //Put the position to the right of the cell
+            $this->SetXY($x+$w,$y);
+        }
+        //Go to the next line
+        $this->Ln($h);
+    }
+    
 
-	function CheckPageBreak($h)
-	{
-		//If the height h would cause an overflow, add a new page immediately
-		if($this->GetY()+$h>$this->PageBreakTrigger)
-			$this->AddPage($this->CurOrientation);
-	}
+    function CheckPageBreak($h)
+    {
+        //If the height h would cause an overflow, add a new page immediately
+        if($this->GetY()+$h>$this->PageBreakTrigger)
+            $this->AddPage($this->CurOrientation);
+    }
 
-	function NbLines($w, $txt)
+    function NbLines($w, $txt)
 {
     //Computes the number of lines a MultiCell of width w will take
     $cw=&$this->CurrentFont['cw'];
@@ -107,77 +109,73 @@ class PDF extends FPDF
     return $nl;
 }
 
-	
+    
 }
-$pdf = new PDF('P','mm',array(76,297));
 date_default_timezone_set('America/Guayaquil');
 $fecha=date('Y-m-d H:i:s', time());   
+$pdf = new PDF('L','mm',array(210,170));
 $pdf->AddPage();
-$pdf->SetMargins(0,10,0,0);
-$pdf->Ln(1);
-$pdf->SetFont('Arial','',10);
-$sql=pg_query("select id_factura_venta,num_factura,nombre_empresa,telefono_empresa,direccion_empresa,email_empresa,pagina_web,ruc_empresa,nombres_cli,identificacion,direccion_cli,telefono,ciudad,fecha_actual,forma_pago,fecha_cancelacion,nombre_usuario,apellido_usuario,direccion_cli from factura_venta,clientes,empresa,usuario where factura_venta.id_cliente=clientes.id_cliente and empresa.id_empresa=factura_venta.id_empresa and factura_venta.id_usuario=usuario.id_usuario and factura_venta.id_factura_venta='$_GET[id]'");				
-	$numfilas = pg_num_rows($sql);
-	for ($i=0; $i<$numfilas; $i++)
-	{		
-		$fila = pg_fetch_row($sql);								
-		$pdf->SetFont('Arial','',10); 		
-		$pdf->SetX(2);				
-		$pdf->Text(2,15,utf8_decode(''."RUC:"),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Text(20,15,utf8_decode(''.strtoupper($fila[9])),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Text(2,20,utf8_decode(''."CLIENTE:"),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Text(20,20,utf8_decode(''.strtoupper($fila[8])),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Text(2,25,utf8_decode(''."DIR.:"),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Text(20,25,utf8_decode(''.strtoupper($fila[18])),0,'C', 0);////CLIENTE (X,Y)	
-		$pdf->Ln(20);							
-	}	
-    $pdf->SetX(2);		
-    $pdf->SetWidths(array(10, 33, 15, 15));	
-    $sql=pg_query("select detalle_factura_venta.cantidad,productos.articulo,detalle_factura_venta.precio_venta,detalle_factura_venta.total_venta from factura_venta,detalle_factura_venta,productos where factura_venta.id_factura_venta=detalle_factura_venta.id_factura_venta and detalle_factura_venta.cod_productos=productos.cod_productos and detalle_factura_venta.id_factura_venta='$_GET[id]'");    
-	$pdf->Row(array("Cant",utf8_decode("Descripción"),"Pre. Uni","Pre. Tot"));	
-    while($fila = pg_fetch_row($sql)){	
-    	$pdf->SetX(2);		
-		$pdf->SetFont('Arial','',9);			
-		$descripcion = 	utf8_decode($fila[1]);
-		if(strlen($descripcion) > 20){
-			$descripcion = substr($descripcion, 0,15);
-		}
-		
-		$pdf->SetX(2);
-		$pdf->Row(array(utf8_decode($fila[0]), $descripcion, utf8_decode($fila[2]), utf8_decode($fila[3])));
-		
-	}	
-	$pdf->SetY(125);		
-	$sql=pg_query("select tarifa0,tarifa12,iva_venta,descuento_venta,total_venta from factura_venta where id_factura_venta= '$_GET[id]'");    
-    $sub0 = 0;						
-    $sub12 = 0;
-    $iva = 0;
-    $total = 0;
-	while($fila = pg_fetch_row($sql)){	
-    	$sub0 = $fila[1];
-    	$sub12 = $fila[2];
-    	$iva = $fila[3];
-    	$total = $fila[4];
-	}	
-	$pdf->SetX(2);		
-    $pdf->SetWidths(array(62, 35));							
-	$pdf->Row(array("Tarifa 0%","0.00"));	
-	$pdf->SetX(2);		
-	$pdf->SetWidths(array(62, 35));							
-	$pdf->Row(array("Tarifa 12%",$sub0));	
-	$pdf->SetX(2);		
-	$pdf->SetWidths(array(62, 35));							
-	$pdf->Row(array("Iva 12%",$sub12));	
-	$pdf->SetX(2);		
-	$pdf->SetWidths(array(62, 35));							
-	$pdf->Row(array("Total",$total));	
-	$pdf->Ln(20);	
-	$pdf->SetX(2);		
-    $pdf->SetWidths(array(35, 35));							
-	$pdf->Row(array("__________________","__________________"));	
-	$pdf->SetX(2);		
-	$pdf->Row(array(utf8_decode("Recibí Conforme"),"Entegre Conforme"));	
+$pdf->SetMargins(0,0,0,0);
+$pdf->AddFont('Amble-Regular');
+$pdf->SetFont('Amble-Regular','',14);
+$sql = pg_query("SELECT id_factura_venta,nombres_cli,identificacion,fecha_actual,direccion_cli,telefono,celular,tarifa0,tarifa12,iva_venta,descuento_venta,total_venta from factura_venta,clientes where factura_venta.id_cliente = clientes.id_cliente and id_factura_venta = '$_GET[id]'");
+$subtotal = 0;
+$iva12= 0;
+$iva0 = 0;
+$total = 0;
 
-$pdf->Text(2,200,utf8_decode(''."*"),0,'C', 0);////CLIENTE (X,Y)	
+while($row = pg_fetch_row($sql)){        
+    $pdf->SetFont('Amble-Regular', '', 11);    
+    $pdf->Text(25, 36, utf8_decode('' . strtoupper($row[1])), 0, 'C', 0); ////CLIENTE (X,Y)    
+    $pdf->Text(25, 42, utf8_decode('' . strtoupper($row[2])), 0, 'C', 0); ////RUC (X,Y)    
+    $pdf->Text(155, 42, utf8_decode('' . strtoupper($row[3])), 0, 'C', 0); ///DIRECCION (X,Y)  
+    $pdf->Text(25, 54, utf8_decode('' . strtoupper($row[4])), 0, 'C', 0); ///TELEFONO(X,Y)    
+    $pdf->Text(175, 54, utf8_decode('' . strtoupper($row[5])), 0, 'C', 0); ///CIUDAD(X,Y)             
+    $pdf->Ln(1);
+    $subtotal = $row[8];
+    $iva12= $row[9];
+    $iva0 = $row[7];
+    $total = $row[11];
+}
+$pdf->SetY(60);
+$pdf->SetX(5);
+$pdf->SetFont('Amble-Regular', '', 11);
+$pdf->SetWidths(array(30, 120, 30, 30));
+$pdf->SetFillColor(85, 107, 47);
+$sql = pg_query("select detalle_factura_venta.cantidad,productos.articulo,detalle_factura_venta.precio_venta,detalle_factura_venta.total_venta from factura_venta,detalle_factura_venta,productos where factura_venta.id_factura_venta=detalle_factura_venta.id_factura_venta and detalle_factura_venta.cod_productos=productos.cod_productos and detalle_factura_venta.id_factura_venta='$_GET[id]'");
+$numfilas = pg_num_rows($sql);
+for ($i = 0; $i < $numfilas; $i++) {
+    $fila = pg_fetch_row($sql);
+
+    $pdf->SetFont('Amble-Regular', '', 11);
+    $pdf->SetFillColor(255, 255, 255);
+    $pdf->SetTextColor(0);
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+}
+$pdf->SetFont('Amble-Regular', '', 11);
+$pdf->Text(180, 145, utf8_decode('' . strtoupper($subtotal)), 0, 'C', 0); ////CLIENTE (X,Y)    
+$pdf->Text(180, 150, utf8_decode('' . strtoupper($iva12)), 0, 'C', 0); ////RUC (X,Y)    
+$pdf->Text(180, 155, utf8_decode('' . strtoupper($iva0)), 0, 'C', 0); ///DIRECCION (X,Y)  
+$pdf->Text(180, 160, utf8_decode('' . strtoupper($total)), 0, 'C', 0); ///TELEFONO(X,Y)    
+
+        
+
+
+
+
 $pdf->Output();
 ?>
