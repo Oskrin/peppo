@@ -307,15 +307,15 @@ textarea {
 
     font-size: 12px;
     background: #129ED9;
-    color: #999;
+    color: #FFFFFF;
 }
 
 .footer a {
-    color: #999;
+    color: #FFFFFF;
 }
 
 .footer a:hover {
-    color: #FFF;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
