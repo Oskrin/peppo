@@ -4,6 +4,10 @@ include '../procesos/base.php';
 
 date_default_timezone_set('UTC');
 $fecha = date("Y-m-d");
+function maxCaracter($texto, $cant){        
+    $texto = substr($texto, 0,$cant);
+    return $texto;
+}
 class PDF extends FPDF
 {
     var $widths;
@@ -126,51 +130,39 @@ $total = 0;
 
 while($row = pg_fetch_row($sql)){        
     $pdf->SetFont('Amble-Regular', '', 11);    
-    $pdf->Text(25, 36, utf8_decode('' . strtoupper($row[1])), 0, 'C', 0); ////CLIENTE (X,Y)    
-    $pdf->Text(25, 42, utf8_decode('' . strtoupper($row[2])), 0, 'C', 0); ////RUC (X,Y)    
-    $pdf->Text(155, 42, utf8_decode('' . strtoupper($row[3])), 0, 'C', 0); ///DIRECCION (X,Y)  
-    $pdf->Text(25, 54, utf8_decode('' . strtoupper($row[4])), 0, 'C', 0); ///TELEFONO(X,Y)    
-    $pdf->Text(175, 54, utf8_decode('' . strtoupper($row[5])), 0, 'C', 0); ///CIUDAD(X,Y)             
+    $pdf->Text(40, 46, utf8_decode('' . strtoupper($row[1])), 0, 'C', 0); ////CLIENTE (X,Y)    
+    $pdf->Text(40, 52, utf8_decode('' . strtoupper($row[2])), 0, 'C', 0); ////RUC (X,Y)    
+    $pdf->Text(140, 52, utf8_decode('' . strtoupper($row[3])), 0, 'C', 0); ///FECHA (X,Y)  
+    $pdf->Text(40, 58, utf8_decode('' . strtoupper($row[4])), 0, 'C', 0); ///DIRECCION(X,Y)    
+    $pdf->Text(165, 58, utf8_decode('' . strtoupper($row[5])), 0, 'C', 0); ///TELEFONO(X,Y)             
     $pdf->Ln(1);
     $subtotal = $row[8];
     $iva12= $row[9];
     $iva0 = $row[7];
     $total = $row[11];
 }
-$pdf->SetY(60);
-$pdf->SetX(5);
+$pdf->SetY(70);///PARA LOS DETALLES
+$pdf->SetX(18);
 $pdf->SetFont('Amble-Regular', '', 11);
-$pdf->SetWidths(array(30, 120, 30, 30));
+$pdf->SetWidths(array(30, 110, 30, 30));//TAMAÑOS DE LA TABLA DE DETALLES PRODUCTOS
 $pdf->SetFillColor(85, 107, 47);
 $sql = pg_query("select detalle_factura_venta.cantidad,productos.articulo,detalle_factura_venta.precio_venta,detalle_factura_venta.total_venta from factura_venta,detalle_factura_venta,productos where factura_venta.id_factura_venta=detalle_factura_venta.id_factura_venta and detalle_factura_venta.cod_productos=productos.cod_productos and detalle_factura_venta.id_factura_venta='$_GET[id]'");
 $numfilas = pg_num_rows($sql);
 for ($i = 0; $i < $numfilas; $i++) {
+    $pdf->SetX(18);
     $fila = pg_fetch_row($sql);
-
     $pdf->SetFont('Amble-Regular', '', 11);
     $pdf->SetFillColor(255, 255, 255);
-    $pdf->SetTextColor(0);
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
-    $pdf->Row(array(utf8_decode($fila[0]), utf8_decode($fila[1]), utf8_decode($fila[2]), utf8_decode($fila[3])));
+    $pdf->SetTextColor(0);    
+    $pdf->Row(array(utf8_decode($fila[0]), maxCaracter(utf8_decode($fila[1]),45), utf8_decode($fila[2]), utf8_decode($fila[3])));
+
+    
 }
 $pdf->SetFont('Amble-Regular', '', 11);
-$pdf->Text(180, 145, utf8_decode('' . strtoupper($subtotal)), 0, 'C', 0); ////CLIENTE (X,Y)    
-$pdf->Text(180, 150, utf8_decode('' . strtoupper($iva12)), 0, 'C', 0); ////RUC (X,Y)    
-$pdf->Text(180, 155, utf8_decode('' . strtoupper($iva0)), 0, 'C', 0); ///DIRECCION (X,Y)  
-$pdf->Text(180, 160, utf8_decode('' . strtoupper($total)), 0, 'C', 0); ///TELEFONO(X,Y)    
+$pdf->Text(192, 155, utf8_decode('' . strtoupper($subtotal)), 0, 'C', 0); ////SUBTOTAL (X,Y)    
+$pdf->Text(192, 160, utf8_decode('' . strtoupper($iva12)), 0, 'C', 0); ////IVA12 (X,Y)    
+$pdf->Text(192, 165, utf8_decode('' . strtoupper($iva0)), 0, 'C', 0); ///IVA0 (X,Y)  
+$pdf->Text(192, 170, utf8_decode('' . strtoupper($total)), 0, 'C', 0); ///TOTAL(X,Y)    
 
         
 
