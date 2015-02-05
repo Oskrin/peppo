@@ -495,9 +495,12 @@ function porcenta2(){
 
 function inicio() {
     
+    alertify.set({ delay: 1000 });
     jQuery().UItoTop({
         easingType: 'easeOutQuart'
     });
+    
+    $("#cod_prod").focus();
     
     //////////////////para cargar fotos/////////////
     function getDoc(frame) {
@@ -540,6 +543,7 @@ function inicio() {
             }
         });
     });
+    
     $("#cod_barras").keyup(function() {
         $.ajax({
             type: "POST",
@@ -564,11 +568,11 @@ function inicio() {
     $("#utilidad_minorista").keypress(ValidNum);
     $("#utilidad_mayorista").keypress(ValidNum);
     $("#descuento").keypress(ValidNum);
-    $("#stock").keypress(ValidNum);
+    $("#stock").keypress(Valida_punto);
     $("#stock").attr("maxlength", "5");
-    $("#maximo").keypress(ValidNum);
+    $("#maximo").keypress(Valida_punto);
     $("#maximo").attr("maxlength", "5");
-    $("#minimo").keypress(ValidNum);
+    $("#minimo").keypress(Valida_punto);
     $("#minimo").attr("maxlength", "5");
     ////////////////////////////
     
@@ -793,6 +797,59 @@ function inicio() {
         }
     });
 ///////////////////fin tabla productos////////////   
+
+    //////////////////////tabla detalle componentes/////////////////////////
+    jQuery("#list2").jqGrid({
+        datatype: "local",
+        colNames: ['', 'Id', 'Código', 'Producto', 'Cantidad','Precio'],
+        colModel: [
+            {name: 'myac', width: 50, fixed: true, sortable: false, resize: false, formatter: 'actions',
+                formatoptions: {keys: false, delbutton: true, editbutton: false}
+            },
+            {name: 'cod_productos', index: 'cod_productos', editable: false, search: false, hidden: true, editrules: {edithidden: false}, align: 'center',
+                frozen: true, width: 50},
+            {name: 'codigo', index: 'codigo', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
+                frozen: true, width: 150},
+            {name: 'producto', index: 'producto', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
+                frozen: true, width: 350},
+            {name: 'cantidad', index: 'cantidad', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
+                frozen: true, width: 120},
+            {name: 'precio_v', index: 'precio_v', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
+                frozen: true, width: 120}
+        ],
+        rowNum: 30,
+        width: 780,
+        height: 300,
+        sortable: true,
+        rowList: [10, 20, 30],
+        pager: jQuery('#pager2'),
+        sortname: 'cod_productos',
+        sortorder: 'asc',
+        viewrecords: true,
+        cellEdit: true,
+        cellsubmit: 'clientArray',
+        shrinkToFit: true,
+        delOptions: {
+            onclickSubmit: function(rp_ge, rowid) {
+                rp_ge.processing = true;
+                var su = jQuery("#list2").jqGrid('delRowData', rowid);
+                if (su === true) {
+                    $("#delmodlist2").hide();
+                }
+                return true;
+            },
+            processing: true
+        }
+    }).jqGrid('navGrid', '#pager2',
+            {
+                add: false,
+                edit: false,
+                del: false,
+                refresh: true,
+                search: true,
+                view: true
+            });
+    ////////////////fin tabla componentes///////////////////////////        
 }
 
 

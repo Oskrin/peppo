@@ -448,6 +448,7 @@ function reset () {
 }
 
 function inicio() {
+    alertify.set({ delay: 1000 });
     jQuery().UItoTop({ easingType: 'easeOutQuart' });
     //////////////para hora///////////
     show();

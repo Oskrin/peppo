@@ -1566,6 +1566,8 @@ function punto(e){
 }
 
 function inicio() {
+    
+    alertify.set({ delay: 1000 });
     jQuery().UItoTop({
         easingType: 'easeOutQuart'
     });
