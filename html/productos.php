@@ -321,14 +321,15 @@ include '../menus/menu.php';
                                                                         <td><label>Producto:</label></td>   
                                                                         <td><label>Cantidad:</label></td>   
                                                                         <td><label style="width: 100%">P. Costo:</label></td>
-
+                                                                        <!--<td><label>Disponibles:</label></td>-->
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td><input type="text" name="codigo2" id="codigo2" class="span3" placeholder="Buscar..."/></td>
-                                                                        <td><input type="text" name="producto2" id="producto2" class="span3" placeholder="Buscar..."/></td>
-                                                                        <td><input type="text" name="cantidad2" id="cantidad2" class="span1"  maxlength="10"/></td>
-                                                                        <td><input type="text" name="precio2" id="precio2" class="span1" readonly maxlength="10"/></td>
+                                                                        <td><input type="text" name="codigo2" id="codigo2" class="campo" style="width: 200px"  placeholder="Buscar..."/></td>
+                                                                        <td><input type="text" name="producto2" id="producto2" class="campo" style="width: 200px"  placeholder="Buscar..."/></td>
+                                                                        <td><input type="text" name="cantidad2" id="cantidad2" class="campo" style="width: 60px" maxlength="10"/></td>
+                                                                        <td><input type="text" name="precio2" id="precio2" class="campo" style="width: 60px" maxlength="10" readonly /></td>
+                                                                        <!--<td><input type="text" name="disponibles" id="disponibles" style="width: 60px" class="campo"/></td>-->
                                                                         <td><input type="hidden" name="cod_producto2" id="cod_producto2" class="campo" style="width: 100px" maxlength="10"/></td>
                                                                     </tr>
                                                                 </table>
@@ -345,7 +346,6 @@ include '../menus/menu.php';
                                                                 </div> 
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>    
                                             </form>
