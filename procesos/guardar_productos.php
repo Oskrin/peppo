@@ -43,7 +43,7 @@ if ($_POST['tipo'] == "Componente") {
         $arreglo4 = explode('|', $campo4);
         $nelem = count($arreglo1);
         
-        if($nelem != 0){
+        if($nelem != 1){
         /////////////contador componentes//////////
         $cont1 = 0;
         $consulta = pg_query("select max(id_componentes) from componentes");

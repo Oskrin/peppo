@@ -173,11 +173,10 @@ $cont1++;
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="widget widget-nopad">
-                                                            <div class="widget-header"> <i class="icon-list-alt"></i>
+<!--                                                            <div class="widget-header"> <i class="icon-list-alt"></i>
                                                                 <h3>COMPONENTES</h3>
-                                                            </div>
+                                                            </div>-->
                                                             <!-- /widget-header -->
                                                             <div class="widget-content">
                                                                 <div class="widget big-stats-container">
@@ -216,12 +215,10 @@ $cont1++;
                                                         </div>
                                                     </fieldset>
                                                 </form>
-
                                                 <div id="ordenes" title="Búsqueda de Ordenes" class="">
                                                     <table id="list3"><tr><td></td></tr></table>
                                                     <div id="pager3"></div>
                                                 </div>
-
                                                 <div class="form-actions">
                                                     <button class="btn btn-primary" id='btnGuardar'><i class="icon-save"></i> Guardar</button>
                                                     <button class="btn btn-primary" id='btnModificar'><i class="icon-edit"></i> Modificar</button>
@@ -243,7 +240,6 @@ $cont1++;
         </div> 
         <script type="text/javascript" src="../js/base.js"></script>
         <script type="text/javascript" src="../js/jquery.ui.datepicker-es.js"></script>
-
         <div class="footer">
             <div class="footer-inner">
                 <div class="container">
