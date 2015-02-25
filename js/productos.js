@@ -113,24 +113,28 @@ function guardar_producto(){
     var v2 = new Array();
     var v3 = new Array();
     var v4 = new Array();
+    var v5 = new Array();
     var string_v1 = "";
     var string_v2 = "";
     var string_v3 = "";
     var string_v4 = "";
+    var string_v5 = "";
     var fil2 = jQuery("#list2").jqGrid("getRowData");
     
     for (var i = 0; i < fil2.length; i++) {
         var datos2 = fil2[i];
         v1[i] = datos2['cod_productos'];
-        v2[i] = datos2['cantidad'];
-        v3[i] = datos2['precio_u'];
-        v4[i] = datos2['total'];
+        v2[i] = datos2['detalle'];
+        v3[i] = datos2['cantidad'];
+        v4[i] = datos2['precio_u'];
+        v5[i] = datos2['total'];
     }
     for (i = 0; i < fil2.length; i++) {
         string_v1 = string_v1 + "|" + v1[i];
         string_v2 = string_v2 + "|" + v2[i];
         string_v3 = string_v3 + "|" + v3[i];
         string_v4 = string_v4 + "|" + v4[i];
+        string_v5 = string_v5 + "|" + v5[i];
     }
     //////////////////////////////
     
@@ -164,7 +168,7 @@ function guardar_producto(){
                             } else {
                                 $.ajax({        
                                     type: "POST",
-                                    data: $("#productos_form").serialize()+"&campo1="+string_v1+"&campo2="+string_v2+"&campo3="+string_v3+"&campo4="+string_v4,                
+                                    data: $("#productos_form").serialize()+"&campo1="+string_v1+"&campo2="+string_v2+"&campo3="+string_v3+"&campo4="+string_v4+"&campo5="+string_v5,                
                                     url: "../procesos/guardar_productos.php",      
                                     success: function(data) { 
                                         if( data == 1 ){

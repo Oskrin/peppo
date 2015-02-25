@@ -5,6 +5,10 @@ include 'base.php';
 conectarse();
 error_reporting(0);
 
+
+/////////////////CONSULTA//////////////////
+//SELECT D.cod_productos, D.articulo, D.cantidad, D.precio_costo, D.total, * FROM productos P, componentes C , detalles_componentes D where P.cod_productos= C.cod_productos and C.id_componentes = D.id_componentes and C.cod_productos='9';
+
 /////datos ordenes de produccion/////
 $campo1 = $_POST['campo1'];
 $campo2 = $_POST['campo2'];

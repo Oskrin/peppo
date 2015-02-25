@@ -15,6 +15,7 @@ function scrollToBottom() {
         scrollTop: $(document).height()
         }, 'slow');
 }
+
 function scrollToTop() {
     $('html, body').animate({
         scrollTop: 0
@@ -684,7 +685,6 @@ function inicio() {
         .append("<a>" + item.value + "</a>")
         .appendTo(ul);
     };
-
     //////////////////////////////
 
     /////buscador productos primera tabla///// 
@@ -717,58 +717,58 @@ function inicio() {
     //////////////////////////////
 
     /////buscador productos2 segunda tabla///// 
-    $("#codigo2").autocomplete({
-        source: "../procesos/buscar_producto5.php",
-        minLength: 1,
-        focus: function(event, ui) {
-        $("#codigo2").val(ui.item.value);
-        $("#cod_producto2").val(ui.item.cod_producto2);
-        $("#producto2").val(ui.item.producto2);
-        $("#precio2").val(ui.item.precio2);
-        $("#disponibles").val(ui.item.disponibles);
-        return false;
-        },
-        select: function(event, ui) {
-        $("#codigo2").val(ui.item.value);
-        $("#cod_producto2").val(ui.item.cod_producto2);
-        $("#producto2").val(ui.item.producto2);
-        $("#precio2").val(ui.item.precio2);
-        $("#disponibles").val(ui.item.disponibles);
-        return false;
-        }
-
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-        return $("<li>")
-        .append("<a>" + item.value + "</a>")
-        .appendTo(ul);
-    };
+//    $("#codigo2").autocomplete({
+//        source: "../procesos/buscar_producto5.php",
+//        minLength: 1,
+//        focus: function(event, ui) {
+//        $("#codigo2").val(ui.item.value);
+//        $("#cod_producto2").val(ui.item.cod_producto2);
+//        $("#producto2").val(ui.item.producto2);
+//        $("#precio2").val(ui.item.precio2);
+//        $("#disponibles").val(ui.item.disponibles);
+//        return false;
+//        },
+//        select: function(event, ui) {
+//        $("#codigo2").val(ui.item.value);
+//        $("#cod_producto2").val(ui.item.cod_producto2);
+//        $("#producto2").val(ui.item.producto2);
+//        $("#precio2").val(ui.item.precio2);
+//        $("#disponibles").val(ui.item.disponibles);
+//        return false;
+//        }
+//
+//        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+//        return $("<li>")
+//        .append("<a>" + item.value + "</a>")
+//        .appendTo(ul);
+//    };
     //////////////////////////////
 
     /////buscador productos2 segunda tabla///// 
-    $("#producto2").autocomplete({
-        source: "../procesos/buscar_producto6.php",
-        minLength: 1,
-        focus: function(event, ui) {
-        $("#producto2").val(ui.item.value);
-        $("#cod_producto2").val(ui.item.cod_producto2);
-        $("#codigo2").val(ui.item.codigo2);
-        $("#precio2").val(ui.item.precio2);
-        $("#disponibles").val(ui.item.disponibles);
-        return false;
-        },
-        select: function(event, ui) {
-        $("#producto2").val(ui.item.value);
-        $("#cod_producto2").val(ui.item.cod_producto2);
-        $("#codigo2").val(ui.item.codigo2);
-        $("#precio2").val(ui.item.precio2);
-        $("#disponibles").val(ui.item.disponibles);
-        return false;
-        }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-        return $("<li>")
-        .append("<a>" + item.value + "</a>")
-        .appendTo(ul);
-    };
+//    $("#producto2").autocomplete({
+//        source: "../procesos/buscar_producto6.php",
+//        minLength: 1,
+//        focus: function(event, ui) {
+//        $("#producto2").val(ui.item.value);
+//        $("#cod_producto2").val(ui.item.cod_producto2);
+//        $("#codigo2").val(ui.item.codigo2);
+//        $("#precio2").val(ui.item.precio2);
+//        $("#disponibles").val(ui.item.disponibles);
+//        return false;
+//        },
+//        select: function(event, ui) {
+//        $("#producto2").val(ui.item.value);
+//        $("#cod_producto2").val(ui.item.cod_producto2);
+//        $("#codigo2").val(ui.item.codigo2);
+//        $("#precio2").val(ui.item.precio2);
+//        $("#disponibles").val(ui.item.disponibles);
+//        return false;
+//        }
+//        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+//        return $("<li>")
+//        .append("<a>" + item.value + "</a>")
+//        .appendTo(ul);
+//    };
     //////////////////////////////
     
     ///////////calendarios/////
@@ -1001,6 +1001,7 @@ function inicio() {
         
        jQuery("#list3").jqGrid('navButtonAdd', '#pager3', {caption: "Añadir",
        onClickButton: function() {
+           
         var id = jQuery("#list3").jqGrid('getGridParam', 'selrow');
         jQuery('#list3').jqGrid('restoreRow', id);
         

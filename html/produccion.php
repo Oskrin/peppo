@@ -181,7 +181,7 @@ $cont1++;
                                                             <div class="widget-content">
                                                                 <div class="widget big-stats-container">
                                                                     <br />
-                                                                    <table cellpadding="2" border="0" style="margin-left: 20px">
+<!--                                                                    <table cellpadding="2" border="0" style="margin-left: 20px">
                                                                         <tr>
                                                                             <td><label>Código:</label></td>   
                                                                             <td><label>Producto:</label></td>   
@@ -198,7 +198,7 @@ $cont1++;
                                                                             <td><input type="text" name="disponibles" id="disponibles" style="width: 60px" class="campo"/></td>
                                                                             <td><input type="hidden" name="cod_producto2" id="cod_producto2" class="campo" style="width: 100px" maxlength="10"/></td>
                                                                         </tr>
-                                                                    </table>
+                                                                    </table>-->
                                                                     <div style="margin-left: 20px">
                                                                         <table id="list" ></table>
                                                                     </div>

@@ -34,6 +34,7 @@ if ($_POST['tipo'] == "Componente") {
         $campo2 = $_POST['campo2'];
         $campo3 = $_POST['campo3'];
         $campo4 = $_POST['campo4'];
+        $campo5 = $_POST['campo5'];
         ///////////////////////////////
         //
         ////////////agregar detalle_componentes////////
@@ -41,20 +42,21 @@ if ($_POST['tipo'] == "Componente") {
         $arreglo2 = explode('|', $campo2);
         $arreglo3 = explode('|', $campo3);
         $arreglo4 = explode('|', $campo4);
+        $arreglo5 = explode('|', $campo5);
         $nelem = count($arreglo1);
-        
-        if($nelem != 1){
-        /////////////contador componentes//////////
-        $cont1 = 0;
-        $consulta = pg_query("select max(id_componentes) from componentes");
-        while ($row = pg_fetch_row($consulta)) {
-            $cont1 = $row[0];
-        }
-        $cont1++;
-        ////////////////////////////////////////
-        //
+
+        if ($nelem != 1) {
+            /////////////contador componentes//////////
+            $cont1 = 0;
+            $consulta = pg_query("select max(id_componentes) from componentes");
+            while ($row = pg_fetch_row($consulta)) {
+                $cont1 = $row[0];
+            }
+            $cont1++;
+            ////////////////////////////////////////
+            //
         /////////////guardar Componente/////////
-        pg_query("insert into componentes values('$cont1','$_SESSION[id]','$cont','$_POST[subtot]','Activo')");
+            pg_query("insert into componentes values('$cont1','$_SESSION[id]','$cont','$_POST[subtot]','Activo')");
         }
         /////////////////////////////////////
         //
@@ -70,7 +72,7 @@ if ($_POST['tipo'] == "Componente") {
             //////////////////////////  
             //
             ///guardar detalle_componentes/////
-            pg_query("insert into detalles_componentes values('$cont2','$cont1','$arreglo1[$j]','$arreglo2[$j]','$arreglo3[$j]','$arreglo4[$j]','Activo')");
+            pg_query("insert into detalles_componentes values('$cont2','$cont1','$arreglo1[$j]','$arreglo2[$j]','$arreglo3[$j]','$arreglo4[$j]','$arreglo5[$j]','Activo')");
             ////////////////////////////////
             $data = 1;
         }
