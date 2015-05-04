@@ -39,9 +39,10 @@ $cont1++;
         <link href="../css/sm-core-css.css" rel="stylesheet" type="text/css" />
         <link href="../css/sm-blue/sm-blue.css" rel="stylesheet" type="text/css" />
 
+        <script type="text/javascript"src="../js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/jquery-loader.js"></script>
-        <script type="text/javascript" src="../js/jquery-1.10.2.js"></script>
+        <!--<script type="text/javascript" src="../js/jquery-1.10.2.js"></script>-->
         <script type="text/javascript" src="../js/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="../js/grid.locale-es.js"></script>
         <script type="text/javascript" src="../js/jquery.jqGrid.src.js"></script>
@@ -148,6 +149,18 @@ $cont1++;
                                                             </div>
                                                             <!-- /widget-header -->
                                                             <div class="widget-content">
+                                                            <br />
+                                                              <div class="row">
+                                                               <div class="span6">
+                                                                 <div class="control-group">                                            
+                                                                    <label class="control-label" for="nombres_cli">Código Orden: <font color="red">*</font></label>
+                                                                    <div class="controls">
+                                                                        <input type="text" name="codigo_orden"  id="codigo_orden" placeholder="Código Orden" required class="span4"/>
+                                                                    </div>
+                                                                </div>  
+                                                               </div>
+                                                               </div>
+
                                                                 <div class="widget big-stats-container">
                                                                     <br />
                                                                     <table cellpadding="2" border="0" style="margin-left: 20px">
@@ -171,48 +184,10 @@ $cont1++;
                                                                         <table id="list2"></table>  
                                                                     </div> 
                                                                 </div>
+                                                               
                                                             </div>
                                                         </div>
-                                                        <div class="widget widget-nopad">
-<!--                                                            <div class="widget-header"> <i class="icon-list-alt"></i>
-                                                                <h3>COMPONENTES</h3>
-                                                            </div>-->
-                                                            <!-- /widget-header -->
-                                                            <div class="widget-content">
-                                                                <div class="widget big-stats-container">
-                                                                    <br />
-<!--                                                                    <table cellpadding="2" border="0" style="margin-left: 20px">
-                                                                        <tr>
-                                                                            <td><label>Código:</label></td>   
-                                                                            <td><label>Producto:</label></td>   
-                                                                            <td><label>Cantidad:</label></td>   
-                                                                            <td><label style="width: 100%">P. Costo:</label></td>
-                                                                            <td><label>Disponibles:</label></td>
-                                                                        </tr>
 
-                                                                        <tr>
-                                                                            <td><input type="text" name="codigo2" id="codigo2" class="campo" style="width: 200px"  placeholder="Buscar..."/></td>
-                                                                            <td><input type="text" name="producto2" id="producto2" class="campo" style="width: 200px"  placeholder="Buscar..."/></td>
-                                                                            <td><input type="text" name="cantidad2" id="cantidad2" class="campo" style="width: 60px" maxlength="10"/></td>
-                                                                            <td><input type="text" name="precio2" id="precio2" class="campo" style="width: 60px" maxlength="10"/></td>
-                                                                            <td><input type="text" name="disponibles" id="disponibles" style="width: 60px" class="campo"/></td>
-                                                                            <td><input type="hidden" name="cod_producto2" id="cod_producto2" class="campo" style="width: 100px" maxlength="10"/></td>
-                                                                        </tr>
-                                                                    </table>-->
-                                                                    <div style="margin-left: 20px">
-                                                                        <table id="list" ></table>
-                                                                    </div>
-                                                                    <div style="margin-left: 650px">
-                                                                        <table border="0" cellspacing="2">
-                                                                            <tr>
-                                                                                <td><label for="subtot" style="width:100%" >SubTotal:</label></td>
-                                                                                <td><input type="text" style="width:80px" name="subtot" id="subtot" readonly value="0.00" class="campo" /></td>
-                                                                            </tr>
-                                                                        </table> 
-                                                                    </div> 
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </fieldset>
                                                 </form>
                                                 <div id="ordenes" title="Búsqueda de Ordenes" class="">

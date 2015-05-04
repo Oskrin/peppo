@@ -1,7 +1,7 @@
 $(document).on("ready", inicio);
 function evento(e) {
     e.preventDefault();
-}
+};
 
 $(function() {
     $('#main-menu').smartmenus({
@@ -67,13 +67,13 @@ function enter(event) {
     return true;
 }
 
-function enter2(event) {
-    if (event.which === 13 || event.keyCode === 13) {
-        entrar2();
-        return false;
-    }
-    return true;
-}
+// function enter2(event) {
+//     if (event.which === 13 || event.keyCode === 13) {
+//         entrar2();
+//         return false;
+//     }
+//     return true;
+// }
 
 function entrar() {
     if ($("#cod_producto").val() === "") {
@@ -86,7 +86,7 @@ function entrar() {
         } else {
             if ($("#cantidad").val() === "") {
                 $("#cantidad").focus();
-                alertify.alert("Ingrese una cantidad");
+                // alertify.alert("Ingrese una cantidad");
             } else {
                 if ($("#cantidad").val() === "0") {
                     $("#cantidad").val("");
@@ -95,13 +95,17 @@ function entrar() {
                 } else {
                     var filas = jQuery("#list2").jqGrid("getRowData");
                     var su = 0;
+                    var total = 0;
                     if (filas.length === 0) {
+                        total = (parseFloat($("#cantidad").val()) * parseFloat($("#precio_v").val())).toFixed(2); 
+
                         var datarow = {
                             cod_productos: $("#cod_producto").val(), 
                             codigo: $("#codigo").val(), 
                             producto: $("#producto").val(), 
                             cantidad: $("#cantidad").val(), 
-                            precio_v: $("#precio_v").val()
+                            precio_v: $("#precio_v").val(),
+                            total: total
                             };
                         su = jQuery("#list2").jqGrid('addRowData', $("#cod_producto").val(), datarow);
                         $("#cod_producto").val("");
@@ -134,9 +138,25 @@ function entrar() {
                             $("#precio_v").val("");
                             $("#stock").val("");
                             $("#cantidad").val("");
+                            $("#codigo").focus();
                         } else {
                             $("#codigo").focus();
                             alertify.alert("Error... Solo se puede ingresar un producto a la vez");
+                        //     var datarow = {
+                        //     cod_productos: $("#cod_producto").val(), 
+                        //     codigo: $("#codigo").val(), 
+                        //     producto: $("#producto").val(), 
+                        //     cantidad: $("#cantidad").val(), 
+                        //     precio_v: $("#precio_v").val()
+                        //     };
+                        // su = jQuery("#list2").jqGrid('addRowData', $("#cod_producto").val(), datarow);
+                        // $("#cod_producto").val("");
+                        // $("#codigo").val("");
+                        // $("#producto").val("");
+                        // $("#cantidad").val("");
+                        // $("#precio_v").val("");
+                        // $("#stock").val("");
+                        // $("#codigo").focus();
                         }
                     }
                 }
@@ -146,193 +166,202 @@ function entrar() {
 }
 
 
-function entrar2() {
-    if ($("#cod_producto2").val() === "") {
-        $("#codigo2").focus();
-        alertify.alert("Ingrese un producto");
-    } else {
-        if ($("#producto2").val() === "") {
-            $("#producto2").focus();
-            alertify.alert("Ingrese un producto");
-        } else {
-            if ($("#cantidad2").val() === "") {
-                $("#cantidad2").focus();
-                alertify.alert("Ingrese una cantidad");
-            } else {
-                if ($("#precio2").val() === "") {
-                    $("#precio2").focus();
-                    alertify.alert("Ingrese precio costo");
-                } else {
-                    if ($("#cantidad2").val() === "0") {
-                        $("#cantidad2").val("");
-                        $("#cantidad2").focus();
-                        alertify.alert("Ingrese una cantidad válida");
-                    } else {
-                        if (parseInt($("#cantidad2").val()) <= parseInt($("#disponibles").val())) {
-                            var filas = jQuery("#list").jqGrid("getRowData");
-                            var su = 0;
-                            var total = 0;
-                            if (filas.length === 0) {
-                                total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
-                                var datarow = {
-                                    cod_productos: $("#cod_producto2").val(), 
-                                    codigo: $("#codigo2").val(), 
-                                    detalle: $("#producto2").val(), 
-                                    cantidad: $("#cantidad2").val(), 
-                                    precio_u: $("#precio2").val(), 
-                                    total: total,
-                                    stock: $("#disponibles").val()
-                                   // oculto: $("#cantidad2").val() 
-                                };
-                                su = jQuery("#list").jqGrid('addRowData', $("#cod_producto2").val(), datarow);
-                                $("#cod_producto2").val("");
-                                $("#codigo2").val("");
-                                $("#producto2").val("");
-                                $("#cantidad2").val("");
-                                $("#precio2").val("");
-                                $("#p_venta2").val("");
-                                $("#disponibles").val("");
-                            } else {
-                                var repe = 0;
-                                for (var i = 0; i < filas.length; i++) {
-                                    var id = filas[i];
-                                    if (id['cod_productos'] === $("#cod_producto2").val()) {
-                                        repe = 1;
-                                    }
-                                }
-                                if (repe === 1) {
-                                    total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
-                                    datarow = {
-                                        cod_productos: $("#cod_producto2").val(), 
-                                        codigo: $("#codigo2").val(), 
-                                        detalle: $("#producto2").val(), 
-                                        cantidad: $("#cantidad2").val(), 
-                                        precio_u: $("#precio2").val(), 
-                                        total: total,
-                                        stock: $("#disponibles").val()
-                                        //oculto: $("#cantidad2").val() 
-                                    };
-                                    su = jQuery("#list").jqGrid('setRowData', $("#cod_producto2").val(), datarow);
-                                    $("#cod_producto2").val("");
-                                    $("#codigo2").val("");
-                                    $("#producto2").val("");
-                                    $("#cantidad2").val("");
-                                    $("#precio2").val("");
-                                    $("#p_venta2").val("");
-                                    $("#disponibles").val("");
-                                } else {
-                                    total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
-                                    datarow = {
-                                        cod_productos: $("#cod_producto2").val(), 
-                                        codigo: $("#codigo2").val(), 
-                                        detalle: $("#producto2").val(), 
-                                        cantidad: $("#cantidad2").val(), 
-                                        precio_u: $("#precio2").val(), 
-                                        total: total,
-                                        stock: $("#disponibles").val()
-                                        //oculto: $("#cantidad2").val() 
-                                    };
-                                    su = jQuery("#list").jqGrid('addRowData', $("#cod_producto2").val(), datarow);
-                                    $("#cod_producto2").val("");
-                                    $("#codigo2").val("");
-                                    $("#producto2").val("");
-                                    $("#cantidad2").val("");
-                                    $("#precio2").val("");
-                                    $("#p_venta2").val("");
-                                    $("#disponibles").val("");
-                                }
-                            }
+// function entrar2() {
+//     if ($("#cod_producto2").val() === "") {
+//         $("#codigo2").focus();
+//         alertify.alert("Ingrese un producto");
+//     } else {
+//         if ($("#producto2").val() === "") {
+//             $("#producto2").focus();
+//             alertify.alert("Ingrese un producto");
+//         } else {
+//             if ($("#cantidad2").val() === "") {
+//                 $("#cantidad2").focus();
+//                 alertify.alert("Ingrese una cantidad");
+//             } else {
+//                 if ($("#precio2").val() === "") {
+//                     $("#precio2").focus();
+//                     alertify.alert("Ingrese precio costo");
+//                 } else {
+//                     if ($("#cantidad2").val() === "0") {
+//                         $("#cantidad2").val("");
+//                         $("#cantidad2").focus();
+//                         alertify.alert("Ingrese una cantidad válida");
+//                     } else {
+//                         if (parseInt($("#cantidad2").val()) <= parseInt($("#disponibles").val())) {
+//                             var filas = jQuery("#list").jqGrid("getRowData");
+//                             var su = 0;
+//                             var total = 0;
+//                             if (filas.length === 0) {
+//                                 total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
+//                                 var datarow = {
+//                                     cod_productos: $("#cod_producto2").val(), 
+//                                     codigo: $("#codigo2").val(), 
+//                                     detalle: $("#producto2").val(), 
+//                                     cantidad: $("#cantidad2").val(), 
+//                                     precio_u: $("#precio2").val(), 
+//                                     total: total,
+//                                     stock: $("#disponibles").val()
+//                                    // oculto: $("#cantidad2").val() 
+//                                 };
+//                                 su = jQuery("#list").jqGrid('addRowData', $("#cod_producto2").val(), datarow);
+//                                 $("#cod_producto2").val("");
+//                                 $("#codigo2").val("");
+//                                 $("#producto2").val("");
+//                                 $("#cantidad2").val("");
+//                                 $("#precio2").val("");
+//                                 $("#p_venta2").val("");
+//                                 $("#disponibles").val("");
+//                             } else {
+//                                 var repe = 0;
+//                                 for (var i = 0; i < filas.length; i++) {
+//                                     var id = filas[i];
+//                                     if (id['cod_productos'] === $("#cod_producto2").val()) {
+//                                         repe = 1;
+//                                     }
+//                                 }
+//                                 if (repe === 1) {
+//                                     total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
+//                                     datarow = {
+//                                         cod_productos: $("#cod_producto2").val(), 
+//                                         codigo: $("#codigo2").val(), 
+//                                         detalle: $("#producto2").val(), 
+//                                         cantidad: $("#cantidad2").val(), 
+//                                         precio_u: $("#precio2").val(), 
+//                                         total: total,
+//                                         stock: $("#disponibles").val()
+//                                         //oculto: $("#cantidad2").val() 
+//                                     };
+//                                     su = jQuery("#list").jqGrid('setRowData', $("#cod_producto2").val(), datarow);
+//                                     $("#cod_producto2").val("");
+//                                     $("#codigo2").val("");
+//                                     $("#producto2").val("");
+//                                     $("#cantidad2").val("");
+//                                     $("#precio2").val("");
+//                                     $("#p_venta2").val("");
+//                                     $("#disponibles").val("");
+//                                 } else {
+//                                     total = ($("#cantidad2").val() * $("#precio2").val()).toFixed(2);
+//                                     datarow = {
+//                                         cod_productos: $("#cod_producto2").val(), 
+//                                         codigo: $("#codigo2").val(), 
+//                                         detalle: $("#producto2").val(), 
+//                                         cantidad: $("#cantidad2").val(), 
+//                                         precio_u: $("#precio2").val(), 
+//                                         total: total,
+//                                         stock: $("#disponibles").val()
+//                                         //oculto: $("#cantidad2").val() 
+//                                     };
+//                                     su = jQuery("#list").jqGrid('addRowData', $("#cod_producto2").val(), datarow);
+//                                     $("#cod_producto2").val("");
+//                                     $("#codigo2").val("");
+//                                     $("#producto2").val("");
+//                                     $("#cantidad2").val("");
+//                                     $("#precio2").val("");
+//                                     $("#p_venta2").val("");
+//                                     $("#disponibles").val("");
+//                                 }
+//                             }
 
-                            var fil = jQuery("#list").jqGrid("getRowData");
-                            var subtotal = 0;
-                            for (var t = 0; t < fil.length; t++) {
-                                var dd = fil[t];
-                                subtotal = (subtotal + parseFloat(dd['total']));
-                                var sub = parseFloat(subtotal).toFixed(2);
-                            }
-                            $("#subtot").val(sub);
-                            $("#codigo2").focus();
-                        } else {
-                            $("#cantidad2").focus();
-                            alertify.alert("Error... Fuera de stock");
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                             var fil = jQuery("#list").jqGrid("getRowData");
+//                             var subtotal = 0;
+//                             for (var t = 0; t < fil.length; t++) {
+//                                 var dd = fil[t];
+//                                 subtotal = (subtotal + parseFloat(dd['total']));
+//                                 var sub = parseFloat(subtotal).toFixed(2);
+//                             }
+//                             $("#subtot").val(sub);
+//                             $("#codigo2").focus();
+//                         } else {
+//                             $("#cantidad2").focus();
+//                             alertify.alert("Error... Fuera de stock");
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 function guardar_ordenes() {
     var tam = jQuery("#list2").jqGrid("getRowData");
-    var tam2 = jQuery("#list").jqGrid("getRowData");
-    if (tam.length > 0) {
-        if (tam2.length > 0) {
+    // var tam2 = jQuery("#list").jqGrid("getRowData");
+    // if (tam.length > 0) {
+    if($("#codigo_orden").val() == ""){
+       $("#codigo_orden").focus(); 
+       alertify.error("Ingrese Código de Orden");
+    }else{    
+        if (tam.length > 0) {
 
             /////////////////primera tabla/////////
             var v1 = new Array();
             var v2 = new Array();
+            var v3 = new Array();
             var string_v1 = "";
             var string_v2 = "";
+            var string_v3 = "";
             var fil = jQuery("#list2").jqGrid("getRowData");
             for (var i = 0; i < fil.length; i++) {
                 var datos = fil[i];
                 v1[i] = datos['cod_productos'];
                 v2[i] = datos['cantidad'];
+                v3[i] = datos['total'];
             }
             for (i = 0; i < fil.length; i++) {
                 string_v1 = string_v1 + "|" + v1[i];
                 string_v2 = string_v2 + "|" + v2[i];
+                string_v3 = string_v3 + "|" + v3[i];
             }
             //////////////////////////////
 
             /////////////////segunda tabla/////////
-            var v3 = new Array();
-            var v4 = new Array();
-            var v5 = new Array();
-            var v6 = new Array();
-            var string_v3 = "";
-            var string_v4 = "";
-            var string_v5 = "";
-            var string_v6 = "";
-            var fil2 = jQuery("#list").jqGrid("getRowData");
-            for (i = 0; i < fil2.length; i++) {
-                var datos2 = fil2[i];
-                v3[i] = datos2['cod_productos'];
-                v4[i] = datos2['cantidad'];
-                v5[i] = datos2['precio_u'];
-                v6[i] = datos2['total'];
-            }
-            for (i = 0; i < fil2.length; i++) {
-                string_v3 = string_v3 + "|" + v3[i];
-                string_v4 = string_v4 + "|" + v4[i];
-                string_v5 = string_v5 + "|" + v5[i];
-                string_v6 = string_v6 + "|" + v6[i];
-            }
+            // var v3 = new Array();
+            // var v4 = new Array();
+            // var v5 = new Array();
+            // var v6 = new Array();
+            // var string_v3 = "";
+            // var string_v4 = "";
+            // var string_v5 = "";
+            // var string_v6 = "";
+            // var fil2 = jQuery("#list").jqGrid("getRowData");
+            // for (i = 0; i < fil2.length; i++) {
+            //     var datos2 = fil2[i];
+            //     v3[i] = datos2['cod_productos'];
+            //     v4[i] = datos2['cantidad'];
+            //     v5[i] = datos2['precio_u'];
+            //     v6[i] = datos2['total'];
+            // }
+            // for (i = 0; i < fil2.length; i++) {
+            //     string_v3 = string_v3 + "|" + v3[i];
+            //     string_v4 = string_v4 + "|" + v4[i];
+            //     string_v5 = string_v5 + "|" + v5[i];
+            //     string_v6 = string_v6 + "|" + v6[i];
+            // }
             //////////////////////////////
 
             $.ajax({
                 type: "POST",
                 url: "../procesos/guardar_ordenes.php",
-                data: "comprobante=" + $("#comprobante").val() + "&fecha_actual=" + $("#fecha_actual").val() + "&hora_actual=" + $("#hora_actual").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2 + "&subtotal=" + $("#subtot").val() + "&campo3=" + string_v3 + "&campo4=" + string_v4 + "&campo5=" + string_v5 + "&campo6=" + string_v6,
+                data: "codigo_orden=" + $("#codigo_orden").val() + "&fecha_actual=" + $("#fecha_actual").val() + "&hora_actual=" + $("#hora_actual").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2,
                 success: function(data) {
                     var val = data;
                     if (val == 1) {
                         alertify.alert(" Ordenes de producción guardada correctamente", function(){
-                        window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
+                        // window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
                         location.reload();
                         });
                     }
                 }
             });
-        } else {
-            $("#codigo2").focus();
-            alertify.alert("Error... Ingrese los componentes del producto");
-        }
+        // } else {
+        //     $("#codigo2").focus();
+        //     alertify.alert("Error... Ingrese los componentes del producto");
+        // }
     } else {
         $("#codigo").focus();
         alertify.alert("Error... Ingrese el producto a realizar");
     }
+}
 }
 
 function flecha_atras(){
@@ -525,27 +554,28 @@ function limpiar_campo2(){
     }
 }
 
-function limpiar_campo3(){
-    if($("#codigo2").val() === ""){
-        $("#producto2").val("");
-        $("#cantidad2").val("");
-        $("#precio2").val("");
-        $("#disponibles").val("");
-        $("#cod_producto2").val("");
-    }
-}
+// function limpiar_campo3(){
+//     if($("#codigo2").val() === ""){
+//         $("#producto2").val("");
+//         $("#cantidad2").val("");
+//         $("#precio2").val("");
+//         $("#disponibles").val("");
+//         $("#cod_producto2").val("");
+//     }
+// }
 
-function limpiar_campo4(){
-    if($("#producto2").val() === ""){
-        $("#codigo2").val("");
-        $("#cantidad2").val("");
-        $("#precio2").val("");
-        $("#disponibles").val("");
-        $("#cod_producto2").val("");
-    }
-}
+// function limpiar_campo4(){
+//     if($("#producto2").val() === ""){
+//         $("#codigo2").val("");
+//         $("#cantidad2").val("");
+//         $("#precio2").val("");
+//         $("#disponibles").val("");
+//         $("#cod_producto2").val("");
+//     }
+// }
 
 function inicio() {
+    alertify.set({ delay: 1000 });
     jQuery().UItoTop({ easingType: 'easeOutQuart' });
     //////////////para hora///////////
     show();
@@ -585,7 +615,7 @@ function inicio() {
     
     /////////////////////////////////
     $("#cantidad").validCampoFranz("0123456789");
-    $("#cantidad2").validCampoFranz("0123456789");
+    // $("#cantidad2").validCampoFranz("0123456789");
     $("#precio_v").attr("disabled", "disabled");
     $("#stock").attr("disabled", "disabled");
     $("#disponibles").attr("disabled", "disabled");
@@ -594,70 +624,70 @@ function inicio() {
     ////////////////eventos////////////////////
     $("#codigo").on("keyup", limpiar_campo1);
     $("#producto").on("keyup", limpiar_campo2);
-    $("#codigo2").on("keyup", limpiar_campo3);
-    $("#producto2").on("keyup", limpiar_campo4);
+    // $("#codigo2").on("keyup", limpiar_campo3);
+    // $("#producto2").on("keyup", limpiar_campo4);
     
     $("#codigo").on("keypress", enter);
     $("#producto").on("keypress", enter);
     $("#cantidad").on("keypress", enter);
     /////////////////////////////////////////
 
-    $("#codigo2").on("keypress", enter2);
-    $("#producto2").on("keypress", enter2);
-    $("#cantidad2").on("keypress", enter2);
-    $("#precio2").on("keypress", enter2);
+    // $("#codigo2").on("keypress", enter2);
+    // $("#producto2").on("keypress", enter2);
+    // $("#cantidad2").on("keypress", enter2);
+    // $("#precio2").on("keypress", enter2);
     //////////////para precio////////
 
-    $("#precio2").keypress(function(e) {
-        var key;
-        if (window.event)
-        {
-            key = e.keyCode;
-        }
-        else if (e.which)
-        {
-            key = e.which;
-        }
+    // $("#precio2").keypress(function(e) {
+    //     var key;
+    //     if (window.event)
+    //     {
+    //         key = e.keyCode;
+    //     }
+    //     else if (e.which)
+    //     {
+    //         key = e.which;
+    //     }
 
-        if (key < 48 || key > 57)
-        {
-            if (key === 46 || key === 8)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;
-    });
+    //     if (key < 48 || key > 57)
+    //     {
+    //         if (key === 46 || key === 8)
+    //         {
+    //             return true;
+    //         }
+    //         else
+    //         {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // });
 
-    $("#p_venta2").keypress(function(e) {
-        var key;
-        if (window.event)
-        {
-            key = e.keyCode;
-        }
-        else if (e.which)
-        {
-            key = e.which;
-        }
+    // $("#p_venta2").keypress(function(e) {
+    //     var key;
+    //     if (window.event)
+    //     {
+    //         key = e.keyCode;
+    //     }
+    //     else if (e.which)
+    //     {
+    //         key = e.which;
+    //     }
 
-        if (key < 48 || key > 57)
-        {
-            if (key === 46 || key === 8)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;
-    });
-    ////////////////////////////////
+    //     if (key < 48 || key > 57)
+    //     {
+    //         if (key === 46 || key === 8)
+    //         {
+    //             return true;
+    //         }
+    //         else
+    //         {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // });
+    // ////////////////////////////////
 
     /////buscador productos primera tabla///// 
     $("#codigo").autocomplete({
@@ -777,57 +807,57 @@ function inicio() {
     });
 
 //////////////////////tabla productos/////////////////////////
-    jQuery("#list").jqGrid({
-        datatype: "local",
-        colNames: ['', 'ID', 'Código', 'Producto', 'Cantidad', 'Precio Costo', 'Total', 'stock'],
-        colModel: [
-            {name: 'myac', width: 50, fixed: true, sortable: false, resize: false, formatter: 'actions',
-                formatoptions: {keys: false, delbutton: true, editbutton: false}
-            },
-            {name: 'cod_productos', index: 'cod_productos', editable: false, search: false, hidden: true, editrules: {edithidden: false}, align: 'center',
-                frozen: true, width: 50},
-            {name: 'codigo', index: 'codigo', editable: false, search: false, hidden: false, editrules: {edithidden: false}, align: 'center',
-                frozen: true, width: 100},
-            {name: 'detalle', index: 'detalle', editable: false, frozen: true, editrules: {required: true}, align: 'center', width: 290},
-            {name: 'cantidad', index: 'cantidad', editable: false, frozen: true, editrules: {required: true}, align: 'center', width: 70},
-            {name: 'precio_u', index: 'precio_u', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
-            {name: 'total', index: 'total', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
-            {name: 'stock', index: 'stock', editable: false, search: false, frozen: true, hidden: true, editrules: {required: true}, align: 'center', width: 110},
-        ],
-        rowNum: 30,
-        width: 780,
-        sortable: true,
-        rowList: [10, 20, 30],
-        pager: jQuery('#pager'),
-        sortname: 'cod_productos',
-        sortorder: 'asc',
-        viewrecords: true,
-        cellEdit: true,
-        cellsubmit: 'clientArray',
-        shrinkToFit: true,
-        delOptions: {
-            onclickSubmit: function(rp_ge, rowid) {
-                var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
-                jQuery('#list').jqGrid('restoreRow', id);
-                var ret = jQuery("#list").jqGrid('getRowData', id);
-                rp_ge.processing = true;
-                var su = jQuery("#list").jqGrid('delRowData', rowid);
-                if (su === true) {
-                    var subtotal = $("#subtot").val();
-                    var total = (subtotal - ret.total).toFixed(2);
-                    $("#subtot").val(total);
-                    $("#delmodlist").hide();
-                }
-                return true;
-            },
-            processing: true
-        }
-    });
+    // jQuery("#list").jqGrid({
+    //     datatype: "local",
+    //     colNames: ['', 'ID', 'Código', 'Producto', 'Cantidad', 'Precio Costo', 'Total', 'stock'],
+    //     colModel: [
+    //         {name: 'myac', width: 50, fixed: true, sortable: false, resize: false, formatter: 'actions',
+    //             formatoptions: {keys: false, delbutton: true, editbutton: false}
+    //         },
+    //         {name: 'cod_productos', index: 'cod_productos', editable: false, search: false, hidden: true, editrules: {edithidden: false}, align: 'center',
+    //             frozen: true, width: 50},
+    //         {name: 'codigo', index: 'codigo', editable: false, search: false, hidden: false, editrules: {edithidden: false}, align: 'center',
+    //             frozen: true, width: 100},
+    //         {name: 'detalle', index: 'detalle', editable: false, frozen: true, editrules: {required: true}, align: 'center', width: 290},
+    //         {name: 'cantidad', index: 'cantidad', editable: false, frozen: true, editrules: {required: true}, align: 'center', width: 70},
+    //         {name: 'precio_u', index: 'precio_u', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
+    //         {name: 'total', index: 'total', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
+    //         {name: 'stock', index: 'stock', editable: false, search: false, frozen: true, hidden: true, editrules: {required: true}, align: 'center', width: 110},
+    //     ],
+    //     rowNum: 30,
+    //     width: 780,
+    //     sortable: true,
+    //     rowList: [10, 20, 30],
+    //     pager: jQuery('#pager'),
+    //     sortname: 'cod_productos',
+    //     sortorder: 'asc',
+    //     viewrecords: true,
+    //     cellEdit: true,
+    //     cellsubmit: 'clientArray',
+    //     shrinkToFit: true,
+    //     delOptions: {
+    //         onclickSubmit: function(rp_ge, rowid) {
+    //             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
+    //             jQuery('#list').jqGrid('restoreRow', id);
+    //             var ret = jQuery("#list").jqGrid('getRowData', id);
+    //             rp_ge.processing = true;
+    //             var su = jQuery("#list").jqGrid('delRowData', rowid);
+    //             if (su === true) {
+    //                 var subtotal = $("#subtot").val();
+    //                 var total = (subtotal - ret.total).toFixed(2);
+    //                 $("#subtot").val(total);
+    //                 $("#delmodlist").hide();
+    //             }
+    //             return true;
+    //         },
+    //         processing: true
+    //     }
+    // });
 
     //////////////////////tabla detalle ordenes/////////////////////////
     jQuery("#list2").jqGrid({
         datatype: "local",
-        colNames: ['', 'Id', 'Código', 'Producto', 'Cantidad','Precio'],
+        colNames: ['', 'Id', 'Código', 'Producto', 'Cantidad','Precio','Total'],
         colModel: [
             {name: 'myac', width: 50, fixed: true, sortable: false, resize: false, formatter: 'actions',
                 formatoptions: {keys: false, delbutton: true, editbutton: false}
@@ -841,10 +871,13 @@ function inicio() {
             {name: 'cantidad', index: 'cantidad', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
                 frozen: true, width: 120},
             {name: 'precio_v', index: 'precio_v', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
-                frozen: true, width: 120}
+                frozen: true, width: 120},
+            {name: 'total', index: 'total', editable: false, search: false, hidden: false, editrules: {edithidden: true}, align: 'center',
+                frozen: true, width: 120}    
         ],
         rowNum: 30,
         width: 750,
+        height: 350,
         sortable: true,
         rowList: [10, 20, 30],
         pager: jQuery('#pager2'),

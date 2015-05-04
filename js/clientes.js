@@ -268,7 +268,6 @@ function Num_Let() {
     return true;
 }
 
-
 $(function() {
     guidely.init({
         startTrigger: false
