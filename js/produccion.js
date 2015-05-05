@@ -345,11 +345,13 @@ function guardar_ordenes() {
                 data: "codigo_orden=" + $("#codigo_orden").val() + "&fecha_actual=" + $("#fecha_actual").val() + "&hora_actual=" + $("#hora_actual").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2 + "&campo3=" + string_v3,
                 success: function(data) {
                     var val = data;
-                    if (val == 1) {
+                    if (val > 0) {
                         alertify.alert(" Ordenes de producción guardada correctamente", function(){
-                        // window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
+                            window.open("../reportes_sistema/reporte_componentes.php?id="+data,'_blank');                        
                         location.reload();
                         });
+                    }else{
+                        location.reload();
                     }
                 }
             });
@@ -531,7 +533,7 @@ function inicio() {
         success: function(data) {
             var val = data;
             if(val != "") {
-                window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
+                window.open("../reportes_sistema/reporte_componentes.php?id="+$("#comprobante").val(),'_blank');
             } else {
               alertify.alert("Orden de Producción no creada!!");
             }   
