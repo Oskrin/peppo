@@ -35,6 +35,29 @@ for ($i = 0; $i <= $nelem1; $i++) {
     ////////////guardar ordenes produccion////////
     pg_query("insert into ordenes_produccion values('$cont1','$_SESSION[id]','$_POST[codigo_orden]','$_POST[fecha_actual]','$_POST[hora_actual]','$arreglo1[$i]','$arreglo2[$i]','$arreglo3[$i]','Activo')");
     ////////////////////////////////////////
+    
+    $consulta2 = pg_query("select D.cod_productos, D.cantidad, D.precio_costo from detalles_componentes D, componentes C, productos P where C.id_componentes = D.id_componentes and C.cod_productos = P.cod_productos and P.cod_productos = '$arreglo1[$i]'");
+    while ($row = pg_fetch_row($consulta2)) {
+        $cod = $row[0];
+        $can = $row[1];
+        $pre = $row[2];
+        $cantidad_tota = $can  * $arreglo2[$i];
+        $precio_total = $pre * $arreglo2[$i];
+        $total_costo = $cantidad_tota * $pre;  
+        /////////////////contador detalle ordenes produccion/////////////
+        $cont2 = 0;
+        $consulta = pg_query("select max(id_detalles_ordenes) from detalles_ordenes");
+        while ($row = pg_fetch_row($consulta)) {
+            $cont2 = $row[0];
+        }
+        $cont2++;
+        ////////////////////////// 
+        pg_query("insert into detalles_ordenes values('$cont2','$cont1','$cod','$cantidad_tota','".$pre."','$total_costo','Activo')");
+
+
+    }
+
+
     //
     ////////modificar stock y precio del producto///
     // $consulta2 = pg_query("select * from productos where cod_productos = '$arreglo1[$i]'");

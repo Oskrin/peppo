@@ -342,7 +342,7 @@ function guardar_ordenes() {
             $.ajax({
                 type: "POST",
                 url: "../procesos/guardar_ordenes.php",
-                data: "codigo_orden=" + $("#codigo_orden").val() + "&fecha_actual=" + $("#fecha_actual").val() + "&hora_actual=" + $("#hora_actual").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2,
+                data: "codigo_orden=" + $("#codigo_orden").val() + "&fecha_actual=" + $("#fecha_actual").val() + "&hora_actual=" + $("#hora_actual").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2 + "&campo3=" + string_v3,
                 success: function(data) {
                     var val = data;
                     if (val == 1) {

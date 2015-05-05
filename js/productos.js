@@ -970,11 +970,40 @@ function inicio() {
         onClickButton: function() {
             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
             jQuery('#list').jqGrid('restoreRow', id);
+            var ret = jQuery("#list").jqGrid('getRowData', id);
+
             if (id) {
                 jQuery("#list").jqGrid('GridToForm', id, "#productos_form");
                 $("#btnGuardar").attr("disabled", true);
 //                document.getElementById("cod_prod").readOnly = true;
-                $("#productos").dialog("close");
+                var valor = ret.cod_productos;
+
+                $("#codigo2").attr("disabled", "disabled");
+                $("#producto2").attr("disabled", "disabled");
+                $("#cantidad2").attr("disabled", "disabled");
+                $("#precio2").attr("disabled", "disabled");
+
+                $("#list2").jqGrid("clearGridData", true);
+                $("#subtot").val("0.00");
+
+                ////////////////////llamar facturas flechas tercera parte/////
+                $.getJSON('../procesos/retornar_componentes.php?com=' + valor, function(data) {
+                    var tama = data.length;
+                    if (tama !== 0) {
+                        for (var i = 0; i < tama; i = i + 5) {
+                            var datarow = {
+                                cod_productos: data[i], 
+                                codigo: data[i + 1], 
+                                detalle: data[i + 2], 
+                                cantidad: data[i + 3], 
+                                precio_u: data[i + 4], 
+                                // total: data[i + 5]
+                                };
+                            var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
+                        }
+                    }
+                });
+            $("#productos").dialog("close");
             } else {
                 alertify.alert("Seleccione un fila");
             }
@@ -986,7 +1015,7 @@ function inicio() {
    //////////////////////tabla productos/////////////////////////
     jQuery("#list2").jqGrid({
         datatype: "local",
-        colNames: ['', 'ID', 'Código', 'Producto', 'Cantidad', 'Precio Costo', 'Total', 'stock'],
+        colNames: ['', 'ID', 'Código', 'Producto', 'Cantidad', 'Precio Costo', 'Total'],
         colModel: [
             {name: 'myac', width: 50, fixed: true, sortable: false, resize: false, formatter: 'actions',
                 formatoptions: {keys: false, delbutton: true, editbutton: false}
@@ -999,7 +1028,6 @@ function inicio() {
             {name: 'cantidad', index: 'cantidad', editable: false, frozen: true, editrules: {required: true}, align: 'center', width: 70},
             {name: 'precio_u', index: 'precio_u', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
             {name: 'total', index: 'total', editable: false, search: false, frozen: true, editrules: {required: true}, align: 'center', width: 110},
-            {name: 'stock', index: 'stock', editable: false, search: false, frozen: true, hidden: true, editrules: {required: true}, align: 'center', width: 110},
         ],
         rowNum: 30,
         width: 780,

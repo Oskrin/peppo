@@ -9,7 +9,6 @@ include '../procesos/base.php';
 conectarse();
 error_reporting(0);
 
-
 /////////////////contador produccion///////////
 $cont1 = 0;
 $consulta2 = pg_query("select max(id_ordenes) from ordenes_produccion");
