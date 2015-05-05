@@ -100,7 +100,7 @@ function inicio(){
     $("#gastos_internos").on("click",gastos_internos);
     $("#diario_caja").on("click",diario_caja);
     $("#ordenes_produccion_fechas").on("click",ordenes_produccion_fechas);
-    
+    $("#orden_produccion").on("click",orden_produccion);
 }
 function Defecto(e){
     e.preventDefault();
@@ -1521,6 +1521,43 @@ function fn_ordenes_produccion_fechas(e){
     if($('#excel').is(':checked')){     
         window.open('../phpexcel/resumenFacturasCompras.php?inicio='+$('#inicio').val()+'&fin='+$('#fin').val(), '_blank');    
     } else{      
-        window.open('../reportes/reportes/ordenes_produccion_fechas.php?inicio='+$('#inicio').val()+'&fin='+$('#fin').val(), '_blank');      
+        window.open('../reportes_sistema/ordenes_produccion_fechas.php?inicio='+$('#inicio').val()+'&fin='+$('#fin').val(), '_blank');      
+    }   
+}
+
+
+function orden_produccion(e){ 
+    modal.open({
+        content: "<label for='buscarOrden' style='padding:6px;'>Buscar</label><input type='text' name='buscarOrden' id='buscarOrden' style='float: right;padding:2px;' /><input type='hidden' id='id_orden' /><br><input type='radio' name='group1' id='pdf' value='Reporte Pdf' checked> <label for='pdf'>Reporte Pdf</label> <br><a 'id='generar' style='cursor:pointer;font-size:12px;margin-left:40px' class='generarReporteOrdenes' onclick='return fn_orden_produccion(event)' href='#'>Generar Reporte</a>"
+    });
+    $("#buscarOrden").autocomplete({
+        source: "../procesos/buscar_orden_produccion.php",
+        minLength: 1,
+        focus: function(event, ui) {
+        $("#id_orden").val(ui.item.value);            
+        $("#buscarOrden").val(ui.item.label);
+        return false;
+        },
+        select: function(event, ui) {
+        $("#id_orden").val(ui.item.value);            
+        $("#buscarOrden").val(ui.item.label);
+        return false;
+        }
+        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+        return $("<li>")
+        .append("<a>" + item.label + "</a>")
+        .appendTo(ul);
+    };
+    $('.generarReporteOrdenes').button();   
+   
+    e.preventDefault();  
+}
+function fn_orden_produccion(e){
+    var hoja=$("#tam_hoja").val()
+    var tipo;
+    if($('#excel').is(':checked')){     
+        window.open('../phpexcel/reporte_agrupados_prov.php?id='+$('#idProv').val(), '_blank');    
+    } else{        
+        window.open('../reportes_sistema/reporte_componentes.php?id='+$('#id_orden').val(), '_blank');      
     }   
 }
