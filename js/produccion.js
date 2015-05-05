@@ -966,26 +966,21 @@ function inicio() {
          /////////////agregregar ordenes////////
         $("#btnGuardar").attr("disabled", true);
         $("#btnModificar").attr("disabled", true);
+
+        $("#codigo_orden").attr("disabled", "disabled");
         $("#codigo").attr("disabled", "disabled");
         $("#producto").attr("disabled", "disabled");
         $("#cantidad").attr("disabled", "disabled");
-        $("#codigo2").attr("disabled", "disabled");
-        $("#producto2").attr("disabled", "disabled");
-        $("#cantidad2").attr("disabled", "disabled");
-        $("#precio2").attr("disabled", "disabled");
-        $("#subtot").val("0.00");
-        $("#list").jqGrid("clearGridData", true);
         $("#list2").jqGrid("clearGridData", true);
 
         $.getJSON('../procesos/retornar_ordenes.php?com=' + valor, function(data) {
             var tama = data.length;
             if (tama !== 0) {
-                for (var i = 0; i < tama; i = i + 4)
-                {
+                for (var i = 0; i < tama; i = i + 5) {
                     $("#fecha_actual").val(data[i]);
                     $("#hora_actual").val(data[i + 1 ]);
                     $("#digitador").val(data[i + 2 ] + " " + data[i + 3 ] );
-                    
+                    $("#codigo_orden").val(data[i + 4]);
                 }
             }
         });
@@ -995,43 +990,19 @@ function inicio() {
         $.getJSON('../procesos/retornar_ordenes2.php?com=' + valor, function(data) {
             var tama = data.length;
             if (tama !== 0) {
-                for (var i = 0; i < tama; i = i + 6)
-                {
+                for (var i = 0; i < tama; i = i + 6) {
                   var datarow = {
                         cod_productos: data[i], 
                         codigo: data[i + 1], 
                         producto: data[i + 2], 
                         cantidad: data[i + 3], 
-                        precio_v: data[i + 4]
-                    };
-                    var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
-                    $("#subtot").val(data[5]);
-                //////////////////////////////////////
-                }
-            }
-        });
-        /////////////////////////////////////////////////////////
-        
-          ///////////////////llamar ordenes tercera parte/////
-        $.getJSON('../procesos/retornar_ordenes3.php?com=' + valor, function(data) {
-            var tama = data.length;
-            if (tama !== 0) {
-                for (var i = 0; i < tama; i = i + 6)
-                {
-                  var datarow = {
-                        cod_productos: data[i], 
-                        codigo: data[i + 1], 
-                        detalle: data[i + 2], 
-                        cantidad: data[i + 3], 
-                        precio_u: data[i + 4],
+                        precio_v: data[i + 4],
                         total: data[i + 5]
                     };
-                    var su = jQuery("#list").jqGrid('addRowData', data[i], datarow);
-                //////////////////////////////////////
+                    var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
                 }
             }
         });
-        /////////////////////////////////////////////////////////
         $("#ordenes").dialog("close");
         } else {
           alertify.alert("Seleccione una orden");
