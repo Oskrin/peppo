@@ -377,25 +377,20 @@ function flecha_atras(){
                 ///////////////////llamar ordenes primera parte/////
                 $("#btnGuardar").attr("disabled", true);
                 $("#btnModificar").attr("disabled", true);
+                $("#codigo_orden").attr("disabled", "disabled");
                 $("#codigo").attr("disabled", "disabled");
                 $("#producto").attr("disabled", "disabled");
                 $("#cantidad").attr("disabled", "disabled");
-                $("#codigo2").attr("disabled", "disabled");
-                $("#producto2").attr("disabled", "disabled");
-                $("#cantidad2").attr("disabled", "disabled");
-                $("#precio2").attr("disabled", "disabled");
-                $("#subtot").val("0.00");
-                $("#list").jqGrid("clearGridData", true);
                 $("#list2").jqGrid("clearGridData", true);
 
                 $.getJSON('../procesos/retornar_ordenes.php?com=' + valor, function(data) {
                     var tama = data.length;
-                    if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 4)
-                        {
+                    if (tama !== 0) { 
+                        for (var i = 0; i < tama; i = i + 5) {
                             $("#fecha_actual").val(data[i]);
                             $("#hora_actual").val(data[i + 1 ]);
                             $("#digitador").val(data[i + 2 ] + " " + data[i + 3 ] );
+                            $("#codigo_orden").val(data[i + 4]);
                         }
                     }
                 });
@@ -405,39 +400,16 @@ function flecha_atras(){
                 $.getJSON('../procesos/retornar_ordenes2.php?com=' + valor, function(data) {
                     var tama = data.length;
                     if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 6)
-                        {
+                        for (var i = 0; i < tama; i = i + 6) {
                             var datarow = {
                                 cod_productos: data[i], 
                                 codigo: data[i + 1], 
                                 producto: data[i + 2], 
                                 cantidad: data[i + 3], 
-                                precio_v: data[i + 4]
-                            };
-                            var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
-                            $("#subtot").val(data[5]);
-                        //////////////////////////////////////
-                        }
-                    }
-                });
-                /////////////////////////////////////////////////////////
-
-                ///////////////////llamar ordenes tercera parte/////
-                $.getJSON('../procesos/retornar_ordenes3.php?com=' + valor, function(data) {
-                    var tama = data.length;
-                    if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 6)
-                        {
-                            var datarow = {
-                                cod_productos: data[i], 
-                                codigo: data[i + 1], 
-                                detalle: data[i + 2], 
-                                cantidad: data[i + 3], 
-                                precio_u: data[i + 4],
+                                precio_v: data[i + 4],
                                 total: data[i + 5]
                             };
-                            var su = jQuery("#list").jqGrid('addRowData', data[i], datarow);
-                        //////////////////////////////////////
+                            var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
                         }
                     }
                 });
@@ -461,25 +433,21 @@ function flecha_siguiente(){
                 ///////////////////llamar ordenes primera parte/////
                 $("#btnGuardar").attr("disabled", true);
                 $("#btnModificar").attr("disabled", true);
+                $("#codigo_orden").attr("disabled", "disabled");
                 $("#codigo").attr("disabled", "disabled");
                 $("#producto").attr("disabled", "disabled");
                 $("#cantidad").attr("disabled", "disabled");
-                $("#codigo2").attr("disabled", "disabled");
-                $("#producto2").attr("disabled", "disabled");
-                $("#cantidad2").attr("disabled", "disabled");
-                $("#precio2").attr("disabled", "disabled");
-                $("#subtot").val("0.00");
-                $("#list").jqGrid("clearGridData", true);
+                
                 $("#list2").jqGrid("clearGridData", true);
 
                 $.getJSON('../procesos/retornar_ordenes.php?com=' + valor, function(data) {
                     var tama = data.length;
                     if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 4)
-                        {
+                        for (var i = 0; i < tama; i = i + 5) {
                             $("#fecha_actual").val(data[i]);
                             $("#hora_actual").val(data[i + 1 ]);
                             $("#digitador").val(data[i + 2 ] + " " + data[i + 3 ] );
+                            $("#codigo_orden").val(data[i + 4]);
                         }
                     }
                 });
@@ -496,30 +464,10 @@ function flecha_siguiente(){
                                 codigo: data[i + 1], 
                                 producto: data[i + 2], 
                                 cantidad: data[i + 3], 
-                                precio_v: data[i + 4]
-                            };
-                            var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
-                            $("#subtot").val(data[5]);
-                        }
-                    }
-                });
-                /////////////////////////////////////////////////////////
-
-                ///////////////////llamar ordenes tercera parte/////
-                $.getJSON('../procesos/retornar_ordenes3.php?com=' + valor, function(data) {
-                    var tama = data.length;
-                    if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 6)
-                        {
-                            var datarow = {
-                                cod_productos: data[i], 
-                                codigo: data[i + 1], 
-                                detalle: data[i + 2], 
-                                cantidad: data[i + 3], 
-                                precio_u: data[i + 4],
+                                precio_v: data[i + 4],
                                 total: data[i + 5]
                             };
-                            var su = jQuery("#list").jqGrid('addRowData', data[i], datarow);
+                            var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
                         }
                     }
                 });
@@ -554,26 +502,6 @@ function limpiar_campo2(){
     }
 }
 
-// function limpiar_campo3(){
-//     if($("#codigo2").val() === ""){
-//         $("#producto2").val("");
-//         $("#cantidad2").val("");
-//         $("#precio2").val("");
-//         $("#disponibles").val("");
-//         $("#cod_producto2").val("");
-//     }
-// }
-
-// function limpiar_campo4(){
-//     if($("#producto2").val() === ""){
-//         $("#codigo2").val("");
-//         $("#cantidad2").val("");
-//         $("#precio2").val("");
-//         $("#disponibles").val("");
-//         $("#cod_producto2").val("");
-//     }
-// }
-
 function inicio() {
     alertify.set({ delay: 1000 });
     jQuery().UItoTop({ easingType: 'easeOutQuart' });
@@ -596,7 +524,23 @@ function inicio() {
         e.preventDefault();
     });
     $("#btnImprimir").click(function(e) {
-        window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
+       $.ajax({
+        type: "POST",
+        url: "../procesos/validacion.php",
+        data: "comprobante=" + $("#comprobante").val() + "&tabla=" + "ordenes_produccion" + "&id_tabla=" + "id_ordenes" + "&tipo=" + 1,
+        success: function(data) {
+            var val = data;
+            if(val != "") {
+                window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
+            } else {
+              alertify.alert("Orden de Producción no creada!!");
+            }   
+        }
+        }); 
+
+
+
+      //  window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
     });
     $("#btnAtras").click(function(e) {
         e.preventDefault();

@@ -183,10 +183,8 @@ $cont1++;
                                                                         <table id="list2"></table>  
                                                                     </div> 
                                                                 </div>
-                                                               
                                                             </div>
                                                         </div>
-
                                                     </fieldset>
                                                 </form>
                                                 <div id="ordenes" title="Búsqueda de Ordenes" class="">
