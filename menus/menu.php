@@ -127,6 +127,12 @@ function menu_1() {
                             </li>
                         </ul>
                    </li>
+                   <li><a href="" target="_parent">Ordenes de Producción</a>
+                      <ul>
+                        <li><a href="" target="_parent" id="ordenes_produccion_fechas">Ordenes fechas</a></li>
+                        <li><a href="" id="orden_produccion">Buscar Orden</a></li>
+                      </ul>
+                  </li>
                    <!--<li><a href="" target="_parent">Proformas</a>
                         <ul>
                             <li><a href="" target="_parent" id="proformas">Proformas</a></li>
