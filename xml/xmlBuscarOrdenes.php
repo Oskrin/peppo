@@ -24,37 +24,37 @@ $start = $limit * $page - $limit;
 if ($start < 0)
     $start = 0;
 if ($search == 'false') {
-    $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario ORDER BY $sidx $sord offset $start limit $limit";
+    $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario ORDER BY $sidx $sord offset $start limit $limit";
 } else {
     if ($_GET['searchOper'] == 'eq') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] = '$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] = '$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'ne') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] != '$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] != '$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'bw') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'bn') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'ew') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'en') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'cn') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'nc') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'in') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     if ($_GET['searchOper'] == 'ni') {
-        $SQL = "select O.id_ordenes, P.codigo, P.cod_barras, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
+        $SQL = "select O.id_ordenes,o.CODIGO, P.codigo, P.articulo, O.sub_total from ordenes_produccion O, productos P, usuario U where O.cod_productos = P.cod_productos and O.id_usuario=U.id_usuario and $_GET[searchField] not like '%$_GET[searchString]%' ORDER BY $sidx $sord offset $start limit $limit";
     }
     //echo $SQL;
 }
