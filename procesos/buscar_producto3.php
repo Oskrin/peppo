@@ -4,7 +4,7 @@ session_start();
 include 'base.php';
 conectarse();
 $texto2 = $_GET['term'];
-$consulta = pg_query("select distinct * from productos where codigo like '%$texto2%' and estado = 'Activo'");
+$consulta = pg_query("SELECT * FROM productos P, componentes C where C.cod_productos = P.cod_productos and P.estado='Activo' and  codigo like '%$texto2%'");
 while ($row = pg_fetch_row($consulta)) {
     $data[] = array(
         'value' => $row[1],

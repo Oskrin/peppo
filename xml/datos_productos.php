@@ -100,7 +100,7 @@ while ($row = pg_fetch_row($result)) {
     $s .= "<cell>" . $row[20] . "</cell>";
     $s .= "<cell>" . $row[21] . "</cell>";
     $s .= "<cell>" . $row[24] . "</cell>";
-
+    $s .= "<cell>" . $row[25] . "</cell>";
     $s .= "</row>";
 }
 

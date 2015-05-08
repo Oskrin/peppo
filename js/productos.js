@@ -188,6 +188,35 @@ function guardar_producto(){
 }
 
 function modificar_producto(){
+    var v1 = new Array();
+    var v2 = new Array();
+    var v3 = new Array();
+    var v4 = new Array();
+    var v5 = new Array();
+    var string_v1 = "";
+    var string_v2 = "";
+    var string_v3 = "";
+    var string_v4 = "";
+    var string_v5 = "";
+    var fil2 = jQuery("#list2").jqGrid("getRowData");
+    
+    for (var i = 0; i < fil2.length; i++) {
+        var datos2 = fil2[i];
+        v1[i] = datos2['cod_productos'];
+        v2[i] = datos2['detalle'];
+        v3[i] = datos2['cantidad'];
+        v4[i] = datos2['precio_u'];
+        v5[i] = datos2['total'];
+    }
+    for (i = 0; i < fil2.length; i++) {
+        string_v1 = string_v1 + "|" + v1[i];
+        string_v2 = string_v2 + "|" + v2[i];
+        string_v3 = string_v3 + "|" + v3[i];
+        string_v4 = string_v4 + "|" + v4[i];
+        string_v5 = string_v5 + "|" + v5[i];
+    }
+    //////////////////////////////
+
     if ($("#cod_productos").val() === "") {
         alertify.error("Seleccione un producto");
     } else {
@@ -219,54 +248,67 @@ function modificar_producto(){
                                     $("#precio_mayorista").focus();
                                     alertify.error("Ingrese precio mayorista");
                                 } else {
+                                    $.ajax({        
+                                    type: "POST",
+                                    data: $("#productos_form").serialize()+"&campo1="+string_v1+"&campo2="+string_v2+"&campo3="+string_v3+"&campo4="+string_v4+"&campo5="+string_v5,                
+                                    url: "../procesos/modificar_productos.php",      
+                                    success: function(data) { 
+                                        if( data == 1 ){
+                                            alertify.alert("Datos Modificados Correctamente",function(e){
+                                              location.reload(); 
+                                            });
+                                        }
+                                    }
+                                });
+
                                     //                                    if ($("#medida").val() === "") {
                                     //                                    $("#medida").focus();
                                     //                                    alertify.error("Seleccione una opción");
                                     //                                }else{
-                                    $("#productos_form").submit(function(e) {
-                                        var formObj = $(this);
-                                        var formURL = formObj.attr("action");
-                                        if(window.FormData !== undefined) {	
-                                            var formData = new FormData(this);   
-                                            formURL=formURL; 
+                                    // $("#productos_form").submit(function(e) {
+                                    //     var formObj = $(this);
+                                    //     var formURL = formObj.attr("action");
+                                    //     if(window.FormData !== undefined) {	
+                                    //         var formData = new FormData(this);   
+                                    //         formURL=formURL; 
                                             
-                                            $.ajax({
-                                                url: "../procesos/modificar_productos.php",
-                                                type: "POST",
-                                                data:  formData,
-                                                mimeType:"multipart/form-data",
-                                                contentType: false,
-                                                cache: false,
-                                                processData:false,
-                                                success: function(data, textStatus, jqXHR) {
-                                                    var res=data;
-                                                    if(res == 1){
-                                                        alertify.alert("Datos Modificados Correctamente",function(){
-                                                            location.reload();
-                                                        });
-                                                    } else{
-                                                        alertify.error("Error..... Datos no Modificados");
-                                                    }
-                                                },
-                                                error: function(jqXHR, textStatus, errorThrown) 
-                                                {
-                                                } 	        
-                                            });
-                                            e.preventDefault();
-                                        } else {
-                                            var  iframeId = "unique" + (new Date().getTime());
-                                            var iframe = $('<iframe src="javascript:false;" name="'+iframeId+'" />');
-                                            iframe.hide();
-                                            formObj.attr("target",iframeId);
-                                            iframe.appendTo("body");
-                                            iframe.load(function(e) {
-                                                var doc = getDoc(iframe[0]);
-                                                var docRoot = doc.body ? doc.body : doc.documentElement;
-                                                var data = docRoot.innerHTML;
-                                            });
-                                        }
-                                    });
-                                    $("#productos_form").submit();
+                                    //         $.ajax({
+                                    //             url: "../procesos/modificar_productos.php",
+                                    //             type: "POST",
+                                    //             data:  formData,
+                                    //             mimeType:"multipart/form-data",
+                                    //             contentType: false,
+                                    //             cache: false,
+                                    //             processData:false,
+                                    //             success: function(data, textStatus, jqXHR) {
+                                    //                 var res=data;
+                                    //                 if(res == 1){
+                                    //                     alertify.alert("Datos Modificados Correctamente",function(){
+                                    //                         location.reload();
+                                    //                     });
+                                    //                 } else{
+                                    //                     alertify.error("Error..... Datos no Modificados");
+                                    //                 }
+                                    //             },
+                                    //             error: function(jqXHR, textStatus, errorThrown) 
+                                    //             {
+                                    //             } 	        
+                                    //         });
+                                    //         e.preventDefault();
+                                    //     } else {
+                                    //         var  iframeId = "unique" + (new Date().getTime());
+                                    //         var iframe = $('<iframe src="javascript:false;" name="'+iframeId+'" />');
+                                    //         iframe.hide();
+                                    //         formObj.attr("target",iframeId);
+                                    //         iframe.appendTo("body");
+                                    //         iframe.load(function(e) {
+                                    //             var doc = getDoc(iframe[0]);
+                                    //             var docRoot = doc.body ? doc.body : doc.documentElement;
+                                    //             var data = docRoot.innerHTML;
+                                    //         });
+                                    //     }
+                                    // });
+                                    // $("#productos_form").submit();
                                 }
                             }
                         //                            }
@@ -891,7 +933,7 @@ function inicio() {
     jQuery("#list").jqGrid({
         url: '../xml/datos_productos.php',
         datatype: 'xml',
-        colNames: ['ID', 'CÓDIGO', 'CÓDIGO BARRAS', 'ARTICULO', 'IVA', 'SERIES', 'PRECIO COMPRA', 'UTILIDAD MINORISTA', 'PRECIO MINORISTA', 'UTILIDAD MAYORISTA', 'PRECIO MAYORISTA', 'CATEGORIA', 'MARCA', 'DESCUENTO', 'STOCK', 'MÍNIMO', 'MÁXIMO', 'FECHA COMPRA', 'CARACTERISTICAS', 'OBSERVACIONES', 'ESTADO','INVENTARIABLE','UNIDADES'],
+        colNames: ['ID', 'CÓDIGO', 'CÓDIGO BARRAS', 'ARTICULO', 'IVA', 'SERIES', 'PRECIO COMPRA', 'UTILIDAD MINORISTA', 'PRECIO MINORISTA', 'UTILIDAD MAYORISTA', 'PRECIO MAYORISTA', 'CATEGORIA', 'MARCA', 'DESCUENTO', 'STOCK', 'MÍNIMO', 'MÁXIMO', 'FECHA COMPRA', 'CARACTERISTICAS', 'OBSERVACIONES', 'ESTADO','INVENTARIABLE','UNIDADES','TIPO'],
         colModel: [
             {name: 'cod_productos', index: 'cod_productos', editable: true, align: 'center', width: '60', search: false, frozen: true, editoptions: {readonly: 'readonly'}, formoptions: {elmprefix: ""}},
             {name: 'cod_prod', index: 'cod_prod', editable: true, align: 'center', width: '120', search: true, frozen: true, formoptions: {elmsuffix: " (*)"}, editrules: {required: true}},
@@ -916,6 +958,7 @@ function inicio() {
             {name: 'vendible', index: 'vendible', editable: true, align: 'center',hidden: true, width: '120', search: false, frozen: true, editoptions: {readonly: 'readonly'}, formoptions: {elmprefix: ""}},
             {name: 'inventario', index: 'inventario', editable: true, align: 'center',hidden: true , width: '120', search: false, frozen: true, editoptions: {readonly: 'readonly'}, formoptions: {elmprefix: ""}},
             {name: 'medida', index: 'medida', editable: true, align: 'center',hidden: false , width: '120', search: false, frozen: true, editoptions: {readonly: 'readonly'}, formoptions: {elmprefix: ""}},
+            {name: 'tipo', index: 'tipo', editable: true, align: 'center',hidden: false , width: '120', search: false, frozen: true, editoptions: {readonly: 'readonly'}, formoptions: {elmprefix: ""}},
         ],
         rowNum: 10,
         width: 830,
@@ -932,9 +975,37 @@ function inicio() {
          var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
          jQuery('#list').jqGrid('restoreRow', id);   
          jQuery("#list").jqGrid('GridToForm', id, "#productos_form");
+         var ret = jQuery("#list").jqGrid('getRowData', id);
+
          $("#btnGuardar").attr("disabled", true);
-//         document.getElementById("cod_prod").readOnly = true;
-         $("#productos").dialog("close");      
+         var valor = ret.cod_productos;
+
+          $.getJSON('../procesos/retornar_componentes.php?com=' + valor, function(data) {
+                var tama = data.length;
+                if (tama !== 0) {
+                    $("#list2").jqGrid("clearGridData", true);
+                    $("#subtot").val("0.00");
+                    var suma = 0; 
+                    
+                    for (var i = 0; i < tama; i = i + 6) {
+                        var datarow = {
+                            cod_productos: data[i], 
+                            codigo: data[i + 1], 
+                            detalle: data[i + 2], 
+                            cantidad: data[i + 3], 
+                            precio_u: data[i + 4], 
+                            total: data[i + 5]
+                            };
+                        var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
+                        suma = parseFloat(suma) + parseFloat(data[i + 5]); 
+                    }
+                    $("#subtot").val(parseFloat(suma).toFixed(2));
+                }else{
+                    $("#list2").jqGrid("clearGridData", true);
+                    $("#subtot").val("0.00");
+                }
+            });
+         $("#productos").dialog("close");
          }
     }).jqGrid('navGrid', '#pager',
             {
@@ -970,37 +1041,37 @@ function inicio() {
         onClickButton: function() {
             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
             jQuery('#list').jqGrid('restoreRow', id);
+            jQuery("#list").jqGrid('GridToForm', id, "#productos_form");
             var ret = jQuery("#list").jqGrid('getRowData', id);
+            $("#btnGuardar").attr("disabled", true);
+            var valor = ret.cod_productos;
 
             if (id) {
-                jQuery("#list").jqGrid('GridToForm', id, "#productos_form");
-                $("#btnGuardar").attr("disabled", true);
-//                document.getElementById("cod_prod").readOnly = true;
-                var valor = ret.cod_productos;
-
-                $("#codigo2").attr("disabled", "disabled");
-                $("#producto2").attr("disabled", "disabled");
-                $("#cantidad2").attr("disabled", "disabled");
-                $("#precio2").attr("disabled", "disabled");
-
-                $("#list2").jqGrid("clearGridData", true);
-                $("#subtot").val("0.00");
-
-                ////////////////////llamar facturas flechas tercera parte/////
+                ////////////////////llamar componentes/////
                 $.getJSON('../procesos/retornar_componentes.php?com=' + valor, function(data) {
                     var tama = data.length;
                     if (tama !== 0) {
-                        for (var i = 0; i < tama; i = i + 5) {
+                        $("#list2").jqGrid("clearGridData", true);
+                        $("#subtot").val("0.00");
+                        var suma = 0; 
+                        
+                        for (var i = 0; i < tama; i = i + 6) {
                             var datarow = {
                                 cod_productos: data[i], 
                                 codigo: data[i + 1], 
                                 detalle: data[i + 2], 
                                 cantidad: data[i + 3], 
                                 precio_u: data[i + 4], 
-                                // total: data[i + 5]
+                                total: data[i + 5]
                                 };
                             var su = jQuery("#list2").jqGrid('addRowData', data[i], datarow);
+                            suma = parseFloat(suma) + parseFloat(data[i + 5]); 
                         }
+                        
+                        $("#subtot").val(parseFloat(suma).toFixed(2));
+                    }else{
+                        $("#list2").jqGrid("clearGridData", true);
+                        $("#subtot").val("0.00");
                     }
                 });
             $("#productos").dialog("close");
