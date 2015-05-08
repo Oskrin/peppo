@@ -4,7 +4,6 @@ if (empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 include '../menus/menu.php';
-////////////////comprobante ordenes//////////////////
 include '../procesos/base.php';
 conectarse();
 error_reporting(0);
@@ -187,6 +186,7 @@ $cont1++;
                                                         </div>
                                                     </fieldset>
                                                 </form>
+                                                
                                                 <div id="ordenes" title="Búsqueda de Ordenes" class="">
                                                     <table id="list3"><tr><td></td></tr></table>
                                                     <div id="pager3"></div>
@@ -211,6 +211,7 @@ $cont1++;
                 </div> 
             </div> 
         </div> 
+
         <script type="text/javascript" src="../js/base.js"></script>
         <script type="text/javascript" src="../js/jquery.ui.datepicker-es.js"></script>
         <div class="footer">
@@ -218,7 +219,7 @@ $cont1++;
                 <div class="container">
                     <div class="row">
                         <div class="span12">
-                            &copy; 2014 <a href=""> <?php echo $_SESSION['empresa']; ?></a>.
+                            &copy; 2015 <a href=""> <?php echo $_SESSION['empresa']; ?></a>.
                         </div>
                     </div>
                 </div>

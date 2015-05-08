@@ -510,6 +510,7 @@ function inicio() {
     //////////////para hora///////////
     show();
     ///////////////////
+    $("#codigo_orden").focus();
 
     ////////////COMPROBAR ORDEN///////
     $("#codigo_orden").keyup(function() {
