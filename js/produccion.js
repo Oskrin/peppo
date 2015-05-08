@@ -511,6 +511,24 @@ function inicio() {
     show();
     ///////////////////
 
+    ////////////COMPROBAR ORDEN///////
+    $("#codigo_orden").keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: "../procesos/comparar_orden.php",
+            data: "codigo=" + $("#codigo_orden").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#codigo_orden").val("");
+                    $("#codigo_orden").focus();
+                    alertify.error("Error... El código ya existe");
+                }
+            }
+        });
+    });
+    /////////////////////////////
+
     ///////botones ///////////////////
     $("#btnGuardar").click(function(e) {
         e.preventDefault();

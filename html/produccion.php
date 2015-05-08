@@ -197,6 +197,7 @@ $cont1++;
                                                     <button class="btn btn-primary" id='btnBuscar'><i class="icon-search"></i> Buscar</button>
                                                     <button class="btn btn-primary" id='btnNuevo'><i class="icon-pencil"></i> Nuevo</button>
                                                     <button class="btn btn-primary" id='btnImprimir'><i class="icon-print"></i> Imprimir</button>
+                                                    <button class="btn btn-primary" id='btnConfirmar'><i class="icon-check"></i> Confirmar</button>
                                                     <button class="btn btn-primary" id='btnAtras'><i class="icon-step-backward"></i> Atras</button>
                                                     <button class="btn btn-primary" id='btnAdelante'>Adelante <i class="icon-step-forward"></i></button>
                                                 </div>

@@ -260,58 +260,8 @@ function modificar_producto(){
                                         }
                                     }
                                 });
-
-                                    //                                    if ($("#medida").val() === "") {
-                                    //                                    $("#medida").focus();
-                                    //                                    alertify.error("Seleccione una opción");
-                                    //                                }else{
-                                    // $("#productos_form").submit(function(e) {
-                                    //     var formObj = $(this);
-                                    //     var formURL = formObj.attr("action");
-                                    //     if(window.FormData !== undefined) {	
-                                    //         var formData = new FormData(this);   
-                                    //         formURL=formURL; 
-                                            
-                                    //         $.ajax({
-                                    //             url: "../procesos/modificar_productos.php",
-                                    //             type: "POST",
-                                    //             data:  formData,
-                                    //             mimeType:"multipart/form-data",
-                                    //             contentType: false,
-                                    //             cache: false,
-                                    //             processData:false,
-                                    //             success: function(data, textStatus, jqXHR) {
-                                    //                 var res=data;
-                                    //                 if(res == 1){
-                                    //                     alertify.alert("Datos Modificados Correctamente",function(){
-                                    //                         location.reload();
-                                    //                     });
-                                    //                 } else{
-                                    //                     alertify.error("Error..... Datos no Modificados");
-                                    //                 }
-                                    //             },
-                                    //             error: function(jqXHR, textStatus, errorThrown) 
-                                    //             {
-                                    //             } 	        
-                                    //         });
-                                    //         e.preventDefault();
-                                    //     } else {
-                                    //         var  iframeId = "unique" + (new Date().getTime());
-                                    //         var iframe = $('<iframe src="javascript:false;" name="'+iframeId+'" />');
-                                    //         iframe.hide();
-                                    //         formObj.attr("target",iframeId);
-                                    //         iframe.appendTo("body");
-                                    //         iframe.load(function(e) {
-                                    //             var doc = getDoc(iframe[0]);
-                                    //             var docRoot = doc.body ? doc.body : doc.documentElement;
-                                    //             var data = docRoot.innerHTML;
-                                    //         });
-                                    //     }
-                                    // });
-                                    // $("#productos_form").submit();
                                 }
                             }
-                        //                            }
                         }
                     }
                 }
@@ -531,7 +481,6 @@ function entrar2() {
         } else {
             if ($("#cantidad2").val() === "") {
                 $("#cantidad2").focus();
-            //  alertify.alert("Ingrese una cantidad");
             } else {
                 if ($("#precio2").val() === "") {
                     $("#precio2").focus();
@@ -542,7 +491,6 @@ function entrar2() {
                         $("#cantidad2").focus();
                         alertify.alert("Ingrese una cantidad válida");
                     } else {
-                        //                        if (parseInt($("#cantidad2").val()) <= parseInt($("#disponibles").val())) {
                         var filas = jQuery("#list2").jqGrid("getRowData");
                         var su = 0;
                         var total = 0;
@@ -556,7 +504,6 @@ function entrar2() {
                                 precio_u: $("#precio2").val(), 
                                 total: total,
                                 stock: $("#disponibles").val()
-                            // oculto: $("#cantidad2").val() 
                             };
                             su = jQuery("#list2").jqGrid('addRowData', $("#cod_producto2").val(), datarow);
                             $("#cod_producto2").val("");
@@ -626,10 +573,6 @@ function entrar2() {
                         }
                         $("#subtot").val(sub);
                         $("#codigo2").focus();
-                    //                        } else {
-                    //                            $("#cantidad2").focus();
-                    //                            alertify.alert("Error... Fuera de stock");
-                    //                        }
                     }
                 }
             }
@@ -655,7 +598,6 @@ function tab(){
     alert("dsf");
     
 }
-
 
 function inicio() {
     
@@ -1036,7 +978,7 @@ function inicio() {
                 closeOnEscape: true
             }
     );
-    /////////////////		
+    /////////////////////////////////////////////////////////////////		
     jQuery("#list").jqGrid('navButtonAdd', '#pager', {caption: "Añadir",
         onClickButton: function() {
             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
@@ -1122,7 +1064,7 @@ function inicio() {
                     var subtotal = $("#subtot").val();
                     var total = (subtotal - ret.total).toFixed(2);
                     $("#subtot").val(total);
-                    $("#delmodlist").hide();
+                    $("#delmodlist2").hide();
                 }
                 return true;
             },
