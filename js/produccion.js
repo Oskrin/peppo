@@ -283,6 +283,49 @@ function entrar() {
 //     }
 // }
 
+function confirmar_orden() {
+var tam = jQuery("#list2").jqGrid("getRowData");
+/////////////////primera tabla/////////
+var v1 = new Array();
+var v2 = new Array();
+var v3 = new Array();
+var string_v1 = "";
+var string_v2 = "";
+var string_v3 = "";
+var fil = jQuery("#list2").jqGrid("getRowData");
+for (var i = 0; i < fil.length; i++) {
+    var datos = fil[i];
+    v1[i] = datos['cod_productos'];
+    v2[i] = datos['cantidad'];
+    v3[i] = datos['total'];
+}
+for (i = 0; i < fil.length; i++) {
+    string_v1 = string_v1 + "|" + v1[i];
+    string_v2 = string_v2 + "|" + v2[i];
+    string_v3 = string_v3 + "|" + v3[i];
+}
+//////////////////////////////
+
+if (tam.length > 0) {
+$.ajax({
+    type: "POST",
+    url: "../procesos/confirmar_orden.php",
+    data: "comprobante=" + $("#comprobante").val() + "&campo1=" + string_v1 + "&campo2=" + string_v2 + "&campo3=" + string_v3,
+    success: function(data) {
+        // var val = data;
+        if (val == 1) {
+            alertify.alert(" Ordenes de producción guardada correctamente", function(){
+                // window.open("../reportes_sistema/reporte_componentes.php?id="+data,'_blank');                        
+            // location.reload();
+            });
+        }
+    }
+});
+}else{
+alertify.alert("Error... Ingrese el producto a realizar");
+}
+}
+
 function guardar_ordenes() {
     var tam = jQuery("#list2").jqGrid("getRowData");
     // var tam2 = jQuery("#list").jqGrid("getRowData");
@@ -504,6 +547,8 @@ function limpiar_campo2(){
     }
 }
 
+
+
 function inicio() {
     alertify.set({ delay: 1000 });
     jQuery().UItoTop({ easingType: 'easeOutQuart' });
@@ -544,6 +589,7 @@ function inicio() {
     $("#btnNuevo").click(function(e) {
         e.preventDefault();
     });
+
     $("#btnImprimir").click(function(e) {
        $.ajax({
         type: "POST",
@@ -556,21 +602,26 @@ function inicio() {
             } else {
               alertify.alert("Orden de Producción no creada!!");
             }   
-        }
+          }
         }); 
-
-
-
       //  window.open("../reportes/reportes/orden_produccion.php?hoja=A4&id="+$("#comprobante").val(),'_blank');
     });
+
     $("#btnAtras").click(function(e) {
         e.preventDefault();
     });
+
+    $("#btnConfirmar").click(function(e) {
+        e.preventDefault();
+    });
+    
     $("#btnAdelante").click(function(e) {
         e.preventDefault();
     });
 
+
     $("#btnGuardar").on("click", guardar_ordenes);
+    $("#btnConfirmar").on("click", confirmar_orden);
     $("#btnNuevo").on("click", limpiar_ordenes);
     $("#btnAtras").on("click", flecha_atras);
     $("#btnAdelante").on("click", flecha_siguiente);
